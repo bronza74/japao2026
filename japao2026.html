@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Jap%C3%A3o 2026&quot;,&quot;short_name&quot;:&quot;Jap%C3%A3o 2026&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%230a0a0f&quot;,&quot;theme_color&quot;:&quot;%230a0a0f&quot;}">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230a0a0f' rx='24'/><text y='130' x='96' text-anchor='middle' font-size='120'>🇯🇵</text></svg>">
+<title>Japão 2026 · Família</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --bg2: #12121a;
+  --bg3: #1a1a26;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8e8f0;
+  --text2: #8888a8;
+  --text3: #5555770;
+  --red: #ff4d6d;
+  --orange: #ff8c42;
+  --yellow: #ffd166;
+  --green: #06d6a0;
+  --blue: #4cc9f0;
+  --purple: #9b72cf;
+  --pink: #f72585;
+  --accent: #4cc9f0;
+  --phase1: #4cc9f0;
+  --phase2: #f72585;
+  --phase3: #9b72cf;
+  --phase4: #06d6a0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.app-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px 10px;
+}
+.app-header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.app-title { font-family: 'Space Mono', monospace; font-size: 15px; color: var(--accent); letter-spacing: .05em; }
+.app-subtitle { font-size: 10px; color: var(--text2); letter-spacing: .08em; text-transform: uppercase; margin-top: 1px; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-btn {
+  flex: 1; padding: 10px 4px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  color: var(--text2); font-size: 9px; font-family: 'Noto Sans JP', sans-serif;
+  text-transform: uppercase; letter-spacing: .05em; transition: color .2s;
+}
+.nav-btn.active { color: var(--accent); }
+.nav-btn .icon { font-size: 18px; }
+
+/* ── PAGES ── */
+.page { display: none; padding: 0 0 80px; }
+.page.active { display: block; }
+
+/* ── OVERVIEW PAGE ── */
+.hero {
+  padding: 20px 16px 16px;
+  background: linear-gradient(160deg, rgba(76,201,240,.08) 0%, rgba(155,114,207,.05) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.hero-flag { font-size: 36px; margin-bottom: 8px; }
+.hero-title { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.hero-dates { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--accent); margin-top: 4px; }
+.hero-meta { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.hero-chip { background: var(--bg3); border: 1px solid var(--border2); border-radius: 20px; padding: 4px 10px; font-size: 11px; color: var(--text2); }
+
+.section-title {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  color: var(--text2); letter-spacing: .12em; text-transform: uppercase;
+  padding: 16px 16px 8px;
+}
+
+/* FASES */
+.phases { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+.phase-card {
+  border-radius: 12px; border: 1px solid var(--border2); overflow: hidden;
+  cursor: pointer; transition: border-color .2s;
+}
+.phase-card:active { opacity: .85; }
+.phase-header {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+}
+.phase-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.phase-info { flex: 1; }
+.phase-name { font-weight: 700; font-size: 14px; }
+.phase-dates { font-size: 11px; color: var(--text2); margin-top: 1px; }
+.phase-days { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text2); }
+.phase-bar { height: 3px; }
+
+/* ALERTAS */
+.alerts-section { padding: 0 16px; margin-bottom: 4px; }
+.alert-item {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 10px 13px; margin-bottom: 8px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.alert-item.urgent { border-color: rgba(255,77,109,.4); background: rgba(255,77,109,.06); }
+.alert-item.warn { border-color: rgba(255,209,102,.3); background: rgba(255,209,102,.05); }
+.alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-text { font-size: 12px; line-height: 1.5; color: var(--text); }
+.alert-text strong { display: block; font-size: 13px; margin-bottom: 2px; }
+
+/* COSTS OVERVIEW */
+.costs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px; }
+.cost-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 12px; }
+.cost-city { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.cost-val { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: var(--text); }
+.cost-note { font-size: 10px; color: var(--text2); margin-top: 2px; }
+.cost-total { grid-column: 1/-1; background: rgba(76,201,240,.08); border-color: rgba(76,201,240,.3); }
+.cost-total .cost-val { color: var(--accent); font-size: 20px; }
+
+/* ── CALENDAR PAGE ── */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; padding: 0 16px; }
+.cal-header { text-align: center; font-size: 9px; color: var(--text2); padding: 6px 0; letter-spacing: .05em; }
+.cal-day {
+  background: var(--bg2); border-radius: 6px; padding: 6px 4px;
+  text-align: center; cursor: pointer; transition: all .15s; position: relative;
+  min-height: 52px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.cal-day.active-day { outline: 2px solid var(--accent); }
+.cal-day.empty { background: transparent; }
+.cal-day:not(.empty):active { opacity: .75; }
+.cal-num { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; }
+.cal-emoji { font-size: 13px; }
+.cal-label { font-size: 8px; color: var(--text2); line-height: 1.2; text-align: center; max-width: 36px; }
+.cal-dot { width: 4px; height: 4px; border-radius: 50%; position: absolute; bottom: 4px; }
+
+/* ── DAYS PAGE ── */
+.day-selector {
+  display: flex; overflow-x: auto; gap: 8px; padding: 12px 16px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.day-selector::-webkit-scrollbar { display: none; }
+.day-pill {
+  flex-shrink: 0; background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 6px 14px; cursor: pointer; transition: all .2s;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+}
+.day-pill.active { border-color: var(--accent); background: rgba(76,201,240,.1); }
+.day-pill .pill-date { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text); }
+.day-pill .pill-label { font-size: 9px; color: var(--text2); }
+.day-pill.active .pill-date { color: var(--accent); }
+
+.day-content { padding: 0 16px; }
+.day-header-card {
+  background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px;
+  padding: 14px; margin-bottom: 12px;
+}
+.day-title-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+.day-title { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.day-phase-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.day-subtitle { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.day-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.chip { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.chip-green { background: rgba(6,214,160,.12); color: #06d6a0; }
+.chip-red { background: rgba(255,77,109,.12); color: #ff4d6d; }
+.chip-yellow { background: rgba(255,209,102,.12); color: #ffd166; }
+.chip-blue { background: rgba(76,201,240,.12); color: #4cc9f0; }
+.chip-purple { background: rgba(155,114,207,.12); color: #9b72cf; }
+.chip-gray { background: rgba(255,255,255,.06); color: var(--text2); border: 1px solid var(--border); }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 82px; }
+.tl-spine { position: absolute; left: 82px; top: 0; bottom: 0; width: 1px; background: var(--border2); }
+.tl-item { position: relative; min-height: 60px; margin-bottom: 2px; }
+.tl-time { position: absolute; left: -82px; width: 74px; text-align: right; padding-top: 12px; }
+.tl-hour { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text); line-height: 1; }
+.tl-dur { font-size: 9px; color: var(--text2); margin-top: 2px; }
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  position: absolute; left: -6px; top: 14px;
+  border: 2px solid var(--bg); z-index: 1;
+}
+.tl-body { padding: 10px 0 12px 18px; }
+.tl-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; line-height: 1.3; }
+.tl-sub { font-size: 11px; color: var(--text2); line-height: 1.5; margin-bottom: 5px; }
+.tl-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.tl-transit {
+  padding: 3px 0 4px 18px; font-size: 10px; color: var(--text2);
+  font-style: italic; display: flex; align-items: center; gap: 4px;
+}
+
+/* EXPANDABLE DETAIL */
+.expand-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text2); font-size: 10px; padding: 3px 9px; cursor: pointer;
+  margin-top: 5px; transition: all .15s;
+}
+.expand-btn:active { background: var(--bg3); }
+.expand-content { display: none; background: var(--bg3); border-radius: 8px; padding: 9px 11px; margin-top: 6px; }
+.expand-content.open { display: block; }
+.expand-row { display: flex; gap: 7px; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 11px; line-height: 1.5; }
+.expand-row:last-child { border-bottom: none; }
+.expand-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.expand-text { color: var(--text2); flex: 1; }
+
+/* COSTS DAY */
+.day-costs {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; margin: 12px 0;
+}
+.costs-title { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.cost-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.cost-row:last-child { border-bottom: none; }
+.cost-row.total { margin-top: 4px; font-weight: 700; color: var(--accent); font-size: 13px; }
+.cost-label { color: var(--text2); }
+.cost-amount { font-family: 'Space Mono', monospace; font-weight: 600; }
+
+/* ── INFO PAGE ── */
+.info-section { padding: 0 16px; margin-bottom: 8px; }
+.info-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
+.info-card-header { padding: 11px 14px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.info-card-body { display: none; padding: 0 14px 12px; }
+.info-card-body.open { display: block; }
+.info-row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: var(--text2); flex-shrink: 0; }
+.info-value { font-weight: 500; text-align: right; }
+
+.phrase-item { padding: 7px 0; border-bottom: 1px solid var(--border); }
+.phrase-item:last-child { border-bottom: none; }
+.phrase-jp { font-size: 15px; color: var(--accent); font-weight: 500; }
+.phrase-rom { font-size: 11px; color: var(--purple); font-style: italic; margin-top: 1px; }
+.phrase-pt { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+/* ── UTILS ── */
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+.spacer { height: 8px; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── ANIMATIONS ── */
+.page.active { animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="app-header-top">
+    <div>
+      <div class="app-title">🇯🇵 JAPÃO 2026</div>
+      <div class="app-subtitle">15/Jul → 30/Jul · 3 Pessoas · Família</div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);text-align:right">
+      15 dias<br><span style="color:var(--accent)">6 cidades</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- ========== OVERVIEW ========== -->
+<div id="page-overview" class="page active">
+  <div class="hero">
+    <div class="hero-flag">🗾</div>
+    <div class="hero-title">Roteiro Família<br>Japão 2026</div>
+    <div class="hero-dates">15 Jul → 30 Jul 2026</div>
+    <div class="hero-meta">
+      <span class="hero-chip">✈️ AA8495 JFK→HND</span>
+      <span class="hero-chip">🏨 4 hotéis</span>
+      <span class="hero-chip">👨‍👩‍👧 3 pessoas</span>
+      <span class="hero-chip">🎂 20 anos casamento</span>
+      <span class="hero-chip">🎉 15 anos filha</span>
+    </div>
+  </div>
+
+  <div class="section-title">Fases da Viagem</div>
+  <div class="phases">
+    <div class="phase-card" onclick="goToDay('15')">
+      <div class="phase-header">
+        <div class="phase-dot" style="background:var(--phase1)"></div>
+        <div class="phase-info">
+          <div class="phase-name" style="color:var(--phase1)">Fase 1 — Tóquio</div>
+          <div class="phase-dates">15/7 (Qua) → 19/7 (Dom)</div>
+        </div>
+        <div class="phase-days" style="color:var(--phase1)">4 dias</div>
+      </div>
+      <div class="phase-bar" style="background:var(--phase1);opacity:.3"></div>
+    </div>
+    <div class="phase-card" onclick="goToDay('19')">
+      <div class="phase-header">
+        <div class="phase-dot" style="background:var(--phase2)"></div>
+        <div class="phase-info">
+          <div class="phase-name" style="color:var(--phase2)">Fase 2 — Osaka</div>
+          <div class="phase-dates">19/7 (Dom) → 23/7 (Qui)</div>
+        </div>
+        <div class="phase-days" style="color:var(--phase2)">4 dias</div>
+      </div>
+      <div class="phase-bar" style="background:var(--phase2);opacity:.3"></div>
+    </div>
+    <div class="phase-card" onclick="goToDay('23')">
+      <div class="phase-header">
+        <div class="phase-dot" style="background:var(--phase3)"></div>
+        <div class="phase-info">
+          <div class="phase-name" style="color:var(--phase3)">Fase 3 — Quioto</div>
+          <div class="phase-dates">23/7 (Qui) → 27/7 (Seg)</div>
+        </div>
+        <div class="phase-days" style="color:var(--phase3)">4 dias</div>
+      </div>
+      <div class="phase-bar" style="background:var(--phase3);opacity:.3"></div>
+    </div>
+    <div class="phase-card" onclick="goToDay('27')">
+      <div class="phase-header">
+        <div class="phase-dot" style="background:var(--phase4)"></div>
+        <div class="phase-info">
+          <div class="phase-name" style="color:var(--phase4)">Fase 4 — Tóquio 2</div>
+          <div class="phase-dates">27/7 (Seg) → 30/7 (Qui)</div>
+        </div>
+        <div class="phase-days" style="color:var(--phase4)">3 dias</div>
+      </div>
+      <div class="phase-bar" style="background:var(--phase4);opacity:.3"></div>
+    </div>
+  </div>
+
+  <div class="section-title">⚠️ Alertas Críticos — Reservar Agora</div>
+  <div class="alerts-section">
+    <div class="alert-item urgent">
+      <div class="alert-icon">🎮</div>
+      <div class="alert-text"><strong>Nintendo Museum — LOTERIA</strong>museum-tickets.nintendo.com · Verificar cancelamentos diariamente às 10h JST · ¥3.300/adulto</div>
+    </div>
+    <div class="alert-item urgent">
+      <div class="alert-icon">🌌</div>
+      <div class="alert-text"><strong>teamLab Borderless — Reservar já</strong>teamlab.art/e/tokyo · Dia 29/7 às 14h · Esgota com antecedência</div>
+    </div>
+    <div class="alert-item urgent">
+      <div class="alert-icon">🎎</div>
+      <div class="alert-text"><strong>Ghibli Museum — LOTERIA</strong>museum-tickets.nintendo.com · Verificar diariamente às 10h JST · Dia 16/7</div>
+    </div>
+    <div class="alert-item urgent">
+      <div class="alert-icon">🎢</div>
+      <div class="alert-text"><strong>DisneySea — Comprar ingressos</strong>App Tokyo Disney Resort · Premier Access obrigatório · Dia 28/7</div>
+    </div>
+    <div class="alert-item urgent">
+      <div class="alert-icon">🚂</div>
+      <div class="alert-text"><strong>Romancecar Odakyu — Reservar</strong>odakyu-global.com · Abre 1 mês antes às 10h JST (17/6 às 2h BRT) · Dia 17/7</div>
+    </div>
+    <div class="alert-item warn">
+      <div class="alert-icon">🏮</div>
+      <div class="alert-text"><strong>Pontocho Kawayuka — Reservar</strong>Tableall ou Eatoo · 3–4 semanas antes · Dias 23 e 24/7</div>
+    </div>
+    <div class="alert-item warn">
+      <div class="alert-icon">🎡</div>
+      <div class="alert-text"><strong>Universal Studios — Express Pass 3</strong>Klook · Dia 20/7 (Segunda) · Esgota em julho</div>
+    </div>
+    <div class="alert-item warn">
+      <div class="alert-icon">🚕</div>
+      <div class="alert-text"><strong>Táxi HND — app GO</strong>Reservar dia 29/7 à noite para saída 7h30 do dia 30/7</div>
+    </div>
+  </div>
+
+  <div class="section-title">💴 Custos Estimados (3 pessoas)</div>
+  <div class="costs-grid" style="padding:0 16px;margin-bottom:16px;">
+    <div class="cost-card">
+      <div class="cost-city">Tóquio 1+2</div>
+      <div class="cost-val">¥185.000</div>
+      <div class="cost-note">Sem hospedagem</div>
+    </div>
+    <div class="cost-card">
+      <div class="cost-city">Osaka</div>
+      <div class="cost-val">¥95.000</div>
+      <div class="cost-note">4 dias</div>
+    </div>
+    <div class="cost-card">
+      <div class="cost-city">Quioto + Nara</div>
+      <div class="cost-val">¥75.000</div>
+      <div class="cost-note">4 dias</div>
+    </div>
+    <div class="cost-card">
+      <div class="cost-city">Hakone + Kobe</div>
+      <div class="cost-val">¥35.000</div>
+      <div class="cost-note">Bate-volta</div>
+    </div>
+    <div class="cost-card cost-total">
+      <div class="cost-city">TOTAL ESTIMADO</div>
+      <div class="cost-val">¥390.000</div>
+      <div class="cost-note">≈ R$14.400 (sem voos e hotéis)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== DAYS PAGE ========== -->
+<div id="page-days" class="page">
+  <div class="day-selector" id="day-selector">
+    <div class="day-pill active" onclick="selectDay('15')" id="pill-15"><div class="pill-date">15/7</div><div class="pill-label">Qua Chegada</div></div>
+    <div class="day-pill" onclick="selectDay('16')" id="pill-16"><div class="pill-date">16/7</div><div class="pill-label">Qui Ghibli</div></div>
+    <div class="day-pill" onclick="selectDay('17')" id="pill-17"><div class="pill-date">17/7</div><div class="pill-label">Sex Hakone</div></div>
+    <div class="day-pill" onclick="selectDay('18')" id="pill-18"><div class="pill-date">18/7</div><div class="pill-label">Sáb Clássicos</div></div>
+    <div class="day-pill" onclick="selectDay('19')" id="pill-19"><div class="pill-date">19/7</div><div class="pill-label">Dom Osaka</div></div>
+    <div class="day-pill" onclick="selectDay('20')" id="pill-20"><div class="pill-date">20/7</div><div class="pill-label">Seg USJ</div></div>
+    <div class="day-pill" onclick="selectDay('21')" id="pill-21"><div class="pill-date">21/7</div><div class="pill-label">Ter Histórico</div></div>
+    <div class="day-pill" onclick="selectDay('22')" id="pill-22"><div class="pill-date">22/7</div><div class="pill-label">Qua Katsuoji</div></div>
+    <div class="day-pill" onclick="selectDay('23')" id="pill-23"><div class="pill-date">23/7</div><div class="pill-label">Qui Quioto</div></div>
+    <div class="day-pill" onclick="selectDay('24')" id="pill-24"><div class="pill-date">24/7</div><div class="pill-label">Sex Matsuri</div></div>
+    <div class="day-pill" onclick="selectDay('25')" id="pill-25"><div class="pill-date">25/7</div><div class="pill-label">Sáb Arashiyama</div></div>
+    <div class="day-pill" onclick="selectDay('26')" id="pill-26"><div class="pill-date">26/7</div><div class="pill-label">Dom Nara</div></div>
+    <div class="day-pill" onclick="selectDay('27')" id="pill-27"><div class="pill-date">27/7</div><div class="pill-label">Seg Volta</div></div>
+    <div class="day-pill" onclick="selectDay('28')" id="pill-28"><div class="pill-date">28/7</div><div class="pill-label">Ter Disney</div></div>
+    <div class="day-pill" onclick="selectDay('29')" id="pill-29"><div class="pill-date">29/7</div><div class="pill-label">Qua teamLab</div></div>
+    <div class="day-pill" onclick="selectDay('30')" id="pill-30"><div class="pill-date">30/7</div><div class="pill-label">Qui Voo</div></div>
+  </div>
+  <div class="day-content" id="day-content"></div>
+</div>
+
+<!-- ========== INFO PAGE ========== -->
+<div id="page-info" class="page">
+  <div class="section-title">✈️ Voo & Hotéis</div>
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">✈️ Voo de Ida — AA8495 <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body open">
+        <div class="info-row"><span class="info-label">Voo</span><span class="info-value">AA8495 (metal JAL A350)</span></div>
+        <div class="info-row"><span class="info-label">Rota</span><span class="info-value">JFK T8 → HND T3</span></div>
+        <div class="info-row"><span class="info-label">Chegada HND</span><span class="info-value">15/7 às 05h10</span></div>
+        <div class="info-row"><span class="info-label">Lounge saída</span><span class="info-value">TIAT Sky (DragonPass)</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">✈️ Voo de Volta <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">Voo</span><span class="info-value">JAL AA8495</span></div>
+        <div class="info-row"><span class="info-label">Rota</span><span class="info-value">HND T3 → JFK T8</span></div>
+        <div class="info-row"><span class="info-label">Partida</span><span class="info-value">30/7 às 11h55</span></div>
+        <div class="info-row"><span class="info-label">Boarding</span><span class="info-value">11h25 · Saída hotel 7h30</span></div>
+        <div class="info-row"><span class="info-label">Lounge</span><span class="info-value">TIAT Sky (DragonPass)</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">🏨 Hotéis <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">Tóquio 1</span><span class="info-value">Keihan Tsukiji Ginza Grande (15–19/7)</span></div>
+        <div class="info-row"><span class="info-label">Osaka</span><span class="info-value">Osaka View Hotel Honmachi (19–23/7)</span></div>
+        <div class="info-row"><span class="info-label">Quioto</span><span class="info-value">Yu No Yado Shoei (23–27/7) · Onsen tattoo-friendly ✅</span></div>
+        <div class="info-row"><span class="info-label">Tóquio 2</span><span class="info-value">Nippon Seinenkan (27–30/7)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🚄 Transportes</div>
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">🚄 Shinkansen — Smart EX <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">19/7 Tóquio→Osaka</span><span class="info-value">Shinagawa 9h40 → Shin-Osaka 12h05 · ¥14.450/p</span></div>
+        <div class="info-row"><span class="info-label">23/7 Osaka→Quioto</span><span class="info-value">JR Kaisoku 28 min · ¥580/p</span></div>
+        <div class="info-row"><span class="info-label">27/7 Quioto→Tóquio</span><span class="info-value">Nozomi ~11h · Shinagawa ~13h15 · ¥14.170/p</span></div>
+        <div class="info-row"><span class="info-label">Bagagem</span><span class="info-value">Assento extra reservado (Oversized) — grátis no Smart EX</span></div>
+        <div class="info-row"><span class="info-label">Monte Fuji</span><span class="info-value">Assento D ou E (esquerda, sentido Tóquio). ~35 min após Kyoto.</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">🚃 IC Card (Suica) <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">Carregar</span><span class="info-value">¥5.000/pessoa na chegada HND T3</span></div>
+        <div class="info-row"><span class="info-label">Uso</span><span class="info-value">Metrô, ônibus, konbini, vending machines</span></div>
+        <div class="info-row"><span class="info-label">⚠️ Atenção</span><span class="info-value">Ônibus Katsuoji (dia 22) só aceita IC Card — não dinheiro</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🗣️ Frases em Japonês</div>
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">Frases Essenciais <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body open">
+        <div class="phrase-item"><div class="phrase-jp">すみません</div><div class="phrase-rom">Sumimasen</div><div class="phrase-pt">Com licença / Desculpe</div></div>
+        <div class="phrase-item"><div class="phrase-jp">ありがとうございます</div><div class="phrase-rom">Arigatou gozaimasu</div><div class="phrase-pt">Muito obrigado(a)</div></div>
+        <div class="phrase-item"><div class="phrase-jp">これをください</div><div class="phrase-rom">Kore wo kudasai</div><div class="phrase-pt">Quero isso, por favor</div></div>
+        <div class="phrase-item"><div class="phrase-jp">いくらですか？</div><div class="phrase-rom">Ikura desu ka?</div><div class="phrase-pt">Quanto custa?</div></div>
+        <div class="phrase-item"><div class="phrase-jp">トイレはどこですか？</div><div class="phrase-rom">Toire wa doko desu ka?</div><div class="phrase-pt">Onde fica o banheiro?</div></div>
+        <div class="phrase-item"><div class="phrase-jp">写真を撮ってもいいですか？</div><div class="phrase-rom">Shashin wo totte mo ii desu ka?</div><div class="phrase-pt">Posso tirar uma foto?</div></div>
+        <div class="phrase-item"><div class="phrase-jp">英語は話せますか？</div><div class="phrase-rom">Eigo wa hanasemasu ka?</div><div class="phrase-pt">Você fala inglês?</div></div>
+        <div class="phrase-item"><div class="phrase-jp">二度漬け禁止</div><div class="phrase-rom">Niduke kinshi</div><div class="phrase-pt">Proibido mergulhar 2x (kushikatsu!)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">💡 Dicas Gerais</div>
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">Dinheiro & Compras <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">Câmbio</span><span class="info-value">USD/JPY ≈ ¥158–159 (mai/2026)</span></div>
+        <div class="info-row"><span class="info-label">ATM</span><span class="info-value">7-Eleven e Japão Post aceitam cartão estrangeiro</span></div>
+        <div class="info-row"><span class="info-label">Tax Free</span><span class="info-value">Acima de ¥5.000/loja com passaporte</span></div>
+        <div class="info-row"><span class="info-label">Total recomendado</span><span class="info-value">¥650.000 (3 pessoas, 15 dias)</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-header" onclick="toggleInfo(this)">Calor de Julho ☀️ <span style="margin-left:auto">▾</span></div>
+      <div class="info-card-body">
+        <div class="info-row"><span class="info-label">Temperatura</span><span class="info-value">33–37°C · Umidade alta</span></div>
+        <div class="info-row"><span class="info-label">Pico</span><span class="info-value">12h–15h — ficar em A/C obrigatório</span></div>
+        <div class="info-row"><span class="info-label">Essenciais</span><span class="info-value">Anessa FPS60+, ventilador USB, 2L água/dia, chapéu</span></div>
+        <div class="info-row"><span class="info-label">Roupa</span><span class="info-value">Leve e clara. Para teamLab: branca/pastel obrigatório</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="showPage('overview')" id="nav-overview">
+    <span class="icon">🗾</span>Início
+  </button>
+  <button class="nav-btn" onclick="showPage('days')" id="nav-days">
+    <span class="icon">📅</span>Dias
+  </button>
+  <button class="nav-btn" onclick="showPage('info')" id="nav-info">
+    <span class="icon">ℹ️</span>Info
+  </button>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────
+const DAYS = {
+  '15': {
+    title:'Quarta 15/7 — Chegada em Tóquio',
+    phase:'Tóquio 1', phaseColor:'var(--phase1)',
+    subtitle:'Voo chega HND 05h10 · Jet lag severo · Tsukiji · Hongan-ji · Ginza leve',
+    chips:['chip-blue:Hotel Keihan Tsukiji','chip-yellow:Descanso obrigatório','chip-gray:Jet lag D1'],
+    timeline:[
+      {t:'05h10',dur:'Chegada',dot:'#4cc9f0',title:'✈️ Chegada HND Terminal 3',sub:'Desembarque JAL. Imigração + alfândega. Pegar Suica (¥5.000/pessoa) na máquina azul. Táxi ou metrô Keikyu para hotel.',chips:['chip-green:Suica ¥5.000/p','chip-blue:Hibiya Line direto'],
+        detail:[{c:'#4cc9f0',t:'Suica: máquinas azuis antes da saída de imigração. Carregar ¥5.000 cada.'},{c:'#4cc9f0',t:'Airport Limousine Bus ou Keikyu Line para Ginza/Tsukiji.'},{c:'#ff4d6d',t:'⚠️ Câmbio: use ATM 7-Eleven ou troque em HND T3 (melhor taxa).'}]},
+      {t:'08h30',dur:'',dot:'#2e7d32',title:'🏨 Hotel Keihan Tsukiji Ginza Grande — check-in',sub:'Check-in oficial 15h. Guardam malas. Descanso no lobby ou quarto se disponível.',chips:['chip-green:Malas guardadas']},
+      {t:'10h00',dur:'60 min',dot:'#ff8c42',title:'🐟 Tsukiji Outer Market — café da manhã',sub:'5 min a pé do hotel. Sushi no balcão, tamagoyaki, ostras. Gratuito para visitar.',chips:['chip-green:A pé do hotel','chip-green:Gratuito']},
+      {t:'11h30',dur:'45 min',dot:'#9b72cf',title:'🛕 Tsukiji Hongan-ji — Templo Indiano',sub:'3 min a pé do hotel. Arquitetura única no Japão (estilo indiano). Gratuito.',chips:['chip-green:3 min do hotel','chip-green:Gratuito']},
+      {t:'13h00',dur:'2h',dot:'#BA7517',title:'💤 Descanso obrigatório no hotel',sub:'Jet lag D+1 é severo. Não dormir mais de 2h — apenas descansar. Setar alarme.',chips:['chip-red:Não dormir mais de 2h']},
+      {t:'15h00',dur:'2h',dot:'#4cc9f0',title:'🏙️ Ginza — passeio leve',sub:'A pé do hotel. Ginza Six (rooftop gratuito), lojas de departamento, mitsukoshi. Compras leves.',chips:['chip-green:A pé','chip-gray:Tax free disponível']},
+      {t:'18h30',dur:'',dot:'#2e7d32',title:'🍜 Jantar leve + dormir cedo',sub:'Ramen ou sushi simples perto do hotel. Cama às 20h–21h. Amanhã é Ghibli.',chips:['chip-red:Dormir cedo — Ghibli amanhã']}
+    ],
+    costs:[['Hotel (1ª noite)','incluso'],['Suica (3p)','¥15.000'],['Transporte HND','¥3.600'],['Refeições','~¥6.000'],['TOTAL DIA','~¥24.600']]
+  },
+  '16': {
+    title:'Quinta 16/7 — Ghibli + Kichijoji + Shibuya',
+    phase:'Tóquio 1', phaseColor:'var(--phase1)',
+    subtitle:'Museu Ghibli (loteria!) · Kichijoji · Shibuya Sky ao pôr do sol',
+    chips:['chip-red:⚠️ Ghibli = Loteria','chip-blue:Shibuya Sky 17h','chip-yellow:Kichijoji almoço'],
+    timeline:[
+      {t:'07h30',dur:'',dot:'#BA7517',title:'🏨 Saída hotel',sub:'Café da manhã no konbini. Trem Hibiya → Nakameguro → Inokashira Line para Kichijoji.',chips:['chip-gray:Café no konbini']},
+      {t:'08h30',dur:'60 min',dot:'#2e7d32',title:'🌳 Inokashira Park',sub:'Parque tranquilo às 8h. Lago com barcos de remo (¥700/30min). Chegada antes da multidão.',chips:['chip-green:¥700 barco opcional','chip-green:Calmo de manhã']},
+      {t:'10h00',dur:'90 min',dot:'#f72585',title:'🐱 Ghibli Museum — slot 10h',sub:'⚠️ Ingresso via LOTERIA em museum-tickets.nintendo.com. Sem loteria, sem entrada. ¥1.000/adulto. 2h de visita. Sala de cinema exclusiva inclusa.',chips:['chip-red:Loteria obrigatória','chip-purple:¥1.000/adulto']},
+      {t:'12h00',dur:'90 min',dot:'#ff8c42',title:'🍜 Almoço em Kichijoji',sub:'Harmonica Yokocho (beco de izakayas anos 1950). Curry Moyan, ramen. Área com A/C.',chips:['chip-green:A/C disponível']},
+      {t:'14h00',dur:'2h',dot:'#BA7517',title:'🛍️ Kichijoji Shopping',sub:'Loja Donguri Republic (Ghibli oficial). Animate. Lojas de moda local. Área de compras ao ar livre.',chips:['chip-purple:Ghibli shop','chip-gray:Tax free']},
+      {t:'17h00',dur:'60 min',dot:'#4cc9f0',title:'🌆 Shibuya Sky — Pôr do sol',sub:'Deck ao ar livre no topo do Scramble Square. ¥2.200. Reservar online. Slot 17h = luz dourada.',chips:['chip-yellow:¥2.200/adulto','chip-blue:Reserve online']},
+      {t:'18h30',dur:'45 min',dot:'#c0392b',title:'🏃 Shibuya Crossing',sub:'O cruzamento mais famoso do mundo. Ver do Starbucks 2° andar (grátis, peça um café). Foto em grupo.',chips:['chip-green:Starbucks 2° andar = melhor vista']},
+      {t:'19h30',dur:'',dot:'#2e7d32',title:'🍣 Jantar em Shibuya',sub:'Ichiran Ramen (cabines individuais) ou conveyor belt sushi Sushiro. Retorno Hibiya Line → Tsukiji.',chips:['chip-gray:Hibiya Line de volta']}
+    ],
+    costs:[['Inokashira Park (barcos)','¥2.100'],['Ghibli Museum (3p)','¥3.000'],['Shibuya Sky (3p)','¥6.600'],['Transporte','~¥2.100'],['Refeições','~¥9.000'],['TOTAL DIA','~¥22.800']]
+  },
+  '17': {
+    title:'Sexta 17/7 — Hakone (dia inteiro)',
+    phase:'Tóquio 1', phaseColor:'var(--phase1)',
+    subtitle:'Romancecar · Open-Air Museum · Owakudani · Barco Pirata · Onsen Hakone',
+    chips:['chip-red:Romancecar = reservar 17/6','chip-blue:Hakone Free Pass ¥7.100','chip-green:Onsen tattoo-friendly'],
+    timeline:[
+      {t:'07h30',dur:'',dot:'#185FA5',title:'🚃 Saída — Romancecar de Shinjuku',sub:'Romancecar Odakyu de Shinjuku às 8h30. ¥1.150 surcharge via EMot. Reservar em odakyu-global.com. Cada pessoa precisa do próprio celular com ticket.',chips:['chip-red:Reservar 1 mês antes','chip-blue:EMot app']},
+      {t:'09h45',dur:'2h',dot:'#ff8c42',title:'🎨 Hakone Open-Air Museum',sub:'Primeiro destino. Esculturas ao ar livre em jardim com montanhas. Entrada inclusa no Hakone Free Pass. Piscina de pés com água termal.',chips:['chip-green:Incluso no Free Pass']},
+      {t:'12h00',dur:'45 min',dot:'#2e7d32',title:'🥚 Almoço em Owakudani',sub:'Kuro Tamago — ovo cozido em enxofre (casca preta). Come-se no topo da montanha. Fila curta.',chips:['chip-gray:¥500 por 5 ovos']},
+      {t:'13h00',dur:'90 min',dot:'#9b72cf',title:'🌋 Owakudani — Cratera vulcânica',sub:'Teleférico (Ropeway) de Sounzan → Owakudani → Togendai. Vale ativo com fumaça. Vista do Fuji em dia claro.',chips:['chip-green:Incluso no Free Pass','chip-yellow:Fuji em dia claro']},
+      {t:'14h30',dur:'60 min',dot:'#4cc9f0',title:'⛵ Barco Pirata — Lago Ashi',sub:'Atravessa o Lago Ashi de Togendai → Moto-Hakone. Vista do Fuji sobre o lago. Incluso no Free Pass.',chips:['chip-green:Incluso no Free Pass']},
+      {t:'15h30',dur:'45 min',dot:'#BA7517',title:'⛩️ Hakone Shrine — Torii no Lago',sub:'Torii vermelho sobre as águas do lago Ashi. A foto mais icônica de Hakone. Gratuito.',chips:['chip-green:Gratuito']},
+      {t:'16h30',dur:'60 min',dot:'#2e7d32',title:'♨️ Onsen Hakone Yuryo',sub:'5 min da estação. Banho termal. ¥1.500. Tattoo-friendly ✅. Última vez de onsen antes de voltar.',chips:['chip-green:Tattoo-friendly','chip-yellow:¥1.500']},
+      {t:'18h00',dur:'',dot:'#185FA5',title:'🚃 Romancecar de volta → Shinjuku',sub:'Ônibus Hakone Tozan: Moto-Hakone → Hakone-Yumoto (incluso no Free Pass). Romancecar 18h ou 19h para Shinjuku.',chips:['chip-green:Ônibus incluso no pass']}
+    ],
+    costs:[['Hakone Free Pass (3p)','¥21.300'],['Romancecar surcharge (3p)','¥3.450'],['Onsen Yuryo (3p)','¥4.500'],['Refeições','~¥4.500'],['TOTAL DIA','~¥33.750']]
+  },
+  '18': {
+    title:'Sábado 18/7 — Grandes Clássicos de Tóquio',
+    phase:'Tóquio 1', phaseColor:'var(--phase1)',
+    subtitle:'Tsukiji manhã · Sensō-ji · Akihabara · Harajuku · Shibuya',
+    chips:['chip-yellow:Sábado = lotado','chip-blue:Chegar cedo','chip-purple:Akihabara teen'],
+    timeline:[
+      {t:'06h30',dur:'60 min',dot:'#2e7d32',title:'🐟 Tsukiji — Café da manhã especial',sub:'5 min do hotel. Última manhã em Tsukiji. Sushi no balcão antes das 8h = sem fila.',chips:['chip-green:A pé do hotel','chip-green:Gratuito']},
+      {t:'08h30',dur:'75 min',dot:'#BA7517',title:'⛩️ Sensō-ji + Nakamise',sub:'Hibiya Line: Tsukiji → Asakusa (18 min direto). Chegar 8h30 = antes da multidão. Portão Kaminarimon, incenso, Nakamise (abre 9h).',chips:['chip-green:Gratuito','chip-red:Sábado = cheio às 10h+']},
+      {t:'10h00',dur:'60 min',dot:'#4cc9f0',title:'🗼 Tokyo Skytree (opcional)',sub:'634m. Vista 360°. ¥3.100/adulto. Reserve online. Se orçamento apertado: pule.',chips:['chip-yellow:¥3.100 — opcional']},
+      {t:'11h30',dur:'2h',dot:'#9b72cf',title:'🎮 Akihabara — Mangá, Anime, Gacha',sub:'Tsukuba Express: Asakusa → Akihabara (9 min). Yodobashi (eletrônicos + música), Animate (10 andares anime), Radio Kaikan (gacha). Almoço aqui.',chips:['chip-purple:Mangá + Anime','chip-purple:Gacha','chip-green:A/C total']},
+      {t:'13h30',dur:'90 min',dot:'#c0392b',title:'👗 Harajuku — Takeshita Street',sub:'JR Yamanote: Akihabara → Harajuku (20 min). Moda teen, cosplay, gacha. Omotesando Hills ao lado.',chips:['chip-purple:Filha teen','chip-gray:Crepes japoneses']},
+      {t:'15h00',dur:'60 min',dot:'#BA7517',title:'☕ Pausa estratégica — A/C',sub:'Cafeteria ou shopping em Harajuku/Omotesando. 15h–16h é o pior calor de julho.',chips:['chip-red:Pico calor 15h–16h']},
+      {t:'16h00',dur:'2h',dot:'#4cc9f0',title:'🌆 Shibuya Crossing + Shibuya Sky',sub:'A pé de Harajuku (15 min). Crossing + foto do Starbucks 2° andar (grátis). Shibuya Sky slot 17h = pôr do sol.',chips:['chip-yellow:¥2.200 Shibuya Sky']},
+      {t:'18h30',dur:'',dot:'#2e7d32',title:'🍢 Jantar Omoide Yokocho ou Shibuya',sub:'Omoide Yokocho (yakitori anos 1950 em Shinjuku) ou Ichiran em Shibuya. Retorno Hibiya → Tsukiji.',chips:['chip-gray:Hibiya Line de volta']}
+    ],
+    costs:[['Sensō-ji','Gratuito'],['Skytree (opcional 3p)','¥9.300'],['Transporte','~¥2.100'],['Refeições','~¥9.000'],['TOTAL DIA','~¥20.400']]
+  },
+  '19': {
+    title:'Domingo 19/7 — Chegada em Osaka',
+    phase:'Osaka', phaseColor:'var(--phase2)',
+    subtitle:'Nozomi 9h40 · Honmachi · Kuromon Market · Shinsaibashi · Dotonbori · Namba Yasaka Jinja',
+    chips:['chip-red:Nozomi 9h40 Shinagawa','chip-blue:Assento extra bagagem','chip-purple:Glico Sign 18h'],
+    timeline:[
+      {t:'09h00',dur:'',dot:'#185FA5',title:'🚄 Saída — Shinagawa',sub:'Nozomi sai de Shinagawa às 9h40. Assento Extra Bagagem reservado. Lado D ou E para Fuji.',chips:['chip-blue:Assento esq. para Fuji']},
+      {t:'12h05',dur:'',dot:'#185FA5',title:'🏙️ Chegada Shin-Osaka',sub:'Metrô Midosuji Line: Shin-Osaka → Honmachi (9 min, 4 estações, ¥240). Direto ao hotel.',chips:['chip-green:9 min direto']},
+      {t:'12h30',dur:'60 min',dot:'#2e7d32',title:'🏨 Osaka View Hotel Honmachi',sub:'Guardam malas (check-in 15h). Lounge com bebidas gratuitas. Farmácia Matsumoto Kiyoshi a 2 min.',chips:['chip-yellow:Check-in 15h','chip-green:Bebidas grátis no lounge']},
+      {t:'14h00',dur:'75 min',dot:'#ff8c42',title:'🦞 Kuromon Ichiba Market — almoço',sub:'Metrô Midosuji → Namba. 15 min. Caranguejo, lagosta, wagyu, ostras. Fechar antes das 14h30.',chips:['chip-red:Fechar antes das 14h30','chip-green:Comer andando aceito']},
+      {t:'15h15',dur:'45 min',dot:'#2e7d32',title:'🏨 Check-in oficial + descanso',sub:'Quarto garantido às 15h. Banho rápido, roupa fresca. Máx 45 min — não dormir.',chips:['chip-red:Máx 45 min — não dormir']},
+      {t:'16h30',dur:'75 min',dot:'#BA7517',title:'🛍️ Shinsaibashi Shopping Street',sub:'8 min a pé do hotel. 600m cobertos com A/C. Lojas, cosméticos, Uniqlo. Conecta ao Dotonbori.',chips:['chip-green:A/C total','chip-gray:Tax free']},
+      {t:'17h50',dur:'60 min',dot:'#f72585',title:'🏃 Glico Sign Dotonbori',sub:'3 min a pé de Shinsaibashi. Pose de corrida na Ponte Ebisu. H&M 2° andar = foto sem turistas. Néons acendendo às 18h.',chips:['chip-green:Gratuito','chip-blue:H&M 2° = melhor ângulo']},
+      {t:'19h00',dur:'90 min',dot:'#9b72cf',title:'🏮 Hozenji Yokocho + Jantar',sub:'1 min a pé do Glico. Beco de pedras séc. XIX. Templo do musgo. Kushikatsu aqui.',chips:['chip-purple:Kushikatsu','chip-red:⚠️ Nunca mergulhar 2x no molho']},
+      {t:'20h30',dur:'25 min',dot:'#2e7d32',title:'⛩️ Namba Yasaka Jinja',sub:'10 min a pé do Hozenji. Cabeça de leão 12m iluminada à noite. Foto mais surreal de Osaka. Gratuito.',chips:['chip-green:Gratuito','chip-blue:Iluminado à noite']},
+      {t:'21h00',dur:'',dot:'#185FA5',title:'🏨 Hotel — dormir cedo',sub:'Midosuji: Namba → Honmachi (3 min). USJ amanhã — acordar 6h30.',chips:['chip-red:USJ amanhã — acordar 6h30']}
+    ],
+    costs:[['Nozomi (3p) Shinagawa→Osaka','¥43.350'],['Metrô Osaka','~¥2.100'],['Kuromon Market almoço','~¥6.000'],['Refeições noite','~¥4.500'],['TOTAL DIA','~¥55.950']]
+  },
+  '20': {
+    title:'Segunda 20/7 — Universal Studios Japan',
+    phase:'Osaka', phaseColor:'var(--phase2)',
+    subtitle:'Super Nintendo World · Harry Potter · Express Pass 3 · Fantasmic! noite',
+    chips:['chip-red:Express Pass 3 — Klook agora','chip-blue:Nintendo World PRIMEIRO','chip-yellow:Terça = menos fila'],
+    timeline:[
+      {t:'06h30',dur:'',dot:'#BA7517',title:'☀️ Acordar + café no konbini',sub:'Konbini a 1 min do hotel. Roupa leve, tênis, FPS60+, chapéu, ventilador USB. Ingressos e Express Pass no celular.',chips:['chip-red:Julho = 34°C no USJ']},
+      {t:'07h30',dur:'',dot:'#185FA5',title:'🚇 Metrô para Universal City',sub:'Midosuji → Namba → JR Yumesaki Line → Universal City (25 min). ¥370.',chips:['chip-gray:¥370 total']},
+      {t:'08h15',dur:'',dot:'#2e7d32',title:'⚡ Fila externa — portão abre 8h30',sub:'Chegar 1h antes. Ticket e Express Pass no celular. Estratégia: Super Nintendo World PRIMEIRO.',chips:['chip-red:Chegar 1h antes']},
+      {t:'08h30',dur:'90 min',dot:'#c0392b',title:'🍄 Super Nintendo World — PRIMEIRO',sub:'Mario Kart com Express Pass (15 min vs 90+ sem). Power-Up Band ¥3.500. Yoshi\'s Adventure. Foto obrigatória.',chips:['chip-green:Express Pass','chip-purple:Power-Up Band ¥3.500']},
+      {t:'10h00',dur:'90 min',dot:'#4cc9f0',title:'⚡ Wizarding World of Harry Potter',sub:'Harry Potter Forbidden Journey (Express Pass). Butterbeer gelado ¥900. Hogsmeade. Varinha ¥4.000.',chips:['chip-green:Express Pass','chip-blue:Butterbeer ¥900']},
+      {t:'12h00',dur:'2h',dot:'#2e7d32',title:'🍽️ Almoço + A/C obrigatório',sub:'Three Broomsticks ou Three Musketeer Burger. Reserve no app. 12h–14h = pico calor.',chips:['chip-red:Pico calor 12h–14h','chip-green:A/C obrigatório']},
+      {t:'14h00',dur:'3h',dot:'#BA7517',title:'🎡 Tarde livre',sub:'Minion Park, Jaws, Hollywood Dream, SpiderMan 4D. Express Pass já usados.',chips:['chip-purple:Minion Park','chip-gray:Hollywood Dream']},
+      {t:'17h00',dur:'60 min',dot:'#2e7d32',title:'🛒 Compras no parque',sub:'Loja Mario exclusiva, produtos Harry Potter (Honeydukes, Bertie Botts), camisetas.',chips:['chip-purple:Souvenir exclusivo']},
+      {t:'18h30',dur:'',dot:'#185FA5',title:'🏠 Retorno hotel',sub:'JR → Namba → Midosuji → Honmachi. Jantar opcional em Dotonbori no caminho.',chips:['chip-gray:Dotonbori no caminho']}
+    ],
+    costs:[['Ingressos USJ (3p)','~¥30.000'],['Express Pass 3 (3p)','~¥25.000'],['Power-Up Band (1)','¥3.500'],['Refeições','~¥9.000'],['Transporte','~¥2.100'],['TOTAL DIA','~¥69.600']]
+  },
+  '21': {
+    title:'Terça 21/7 — Grandes Clássicos de Osaka',
+    phase:'Osaka', phaseColor:'var(--phase2)',
+    subtitle:'Castelo · Museu História · Shitennoji · Harukas 300 #1 TripAdvisor · Tempozan',
+    chips:['chip-blue:Terça = menos fila','chip-purple:Harukas 300 #1 TripAdvisor','chip-green:Tempozan noite'],
+    timeline:[
+      {t:'08h00',dur:'45 min',dot:'#c0392b',title:'🏯 Osaka Castle Park + Nishinomaru Garden',sub:'Chegue às 8h — parque vazio. Fosso duplo granito 21m. Nishinomaru Garden (¥200) = melhor foto do castelo. Terça = garden aberto ✅',chips:['chip-green:Parque gratuito','chip-yellow:Nishinomaru ¥200']},
+      {t:'09h00',dur:'90 min',dot:'#c0392b',title:'🏯 Castelo de Osaka — Interior',sub:'Abre 9h. ¥600. 8 andares A/C. Armadura de Hideyoshi, Batalha de Osaka 3D, Andar 8 vista 360°.',chips:['chip-yellow:¥600','chip-green:A/C total']},
+      {t:'10h45',dur:'75 min',dot:'#BA7517',title:'🏛️ Osaka Museum of History',sub:'3 min a pé. 10 andares. Palácio Naniwa séc. IV. Vista do castelo das janelas. ¥600 + ¥400 audioguia inglês.',chips:['chip-yellow:¥600 + ¥400 audioguia']},
+      {t:'12h15',dur:'60 min',dot:'#9b72cf',title:'🏯 Shitennoji — Templo mais antigo do Japão (593 d.C.)',sub:'Metrô 5 min. Fundado pelo Príncipe Shotoku. Torre 5 andares, salão dourado. ¥500.',chips:['chip-yellow:¥500','chip-blue:593 d.C.']},
+      {t:'13h30',dur:'75 min',dot:'#2e7d32',title:'🍽️ Almoço + pausa Tennoji',sub:'Almoço A/C. 13h–15h = pico do calor 35°C+.',chips:['chip-red:Pico calor 13h–15h','chip-green:A/C obrigatório']},
+      {t:'15h00',dur:'90 min',dot:'#7b1fa2',title:'🏙️ Harukas 300 — #1 TripAdvisor Osaka',sub:'300m. Andares 58–60. Vista de Osaka Bay, Kobe, Rokko, Awaji Island. Café andar 58. ¥2.000.',chips:['chip-yellow:¥2.000','chip-purple:#1 TripAdvisor Osaka']},
+      {t:'18h00',dur:'45 min',dot:'#4cc9f0',title:'🎡 Roda Gigante Tempozan',sub:'Metrô Midosuji → Chuo Line → Osakako (15 min). Vista noturna de Osaka Bay. ¥900. Peça cabine transparente.',chips:['chip-yellow:¥900','chip-blue:Cabine transparente — grátis']},
+      {t:'19h30',dur:'',dot:'#2e7d32',title:'🏨 Retorno hotel + jantar',sub:'Chuo Line → Honmachi (direto, 15 min). Jantar perto do hotel. Amanhã Katsuoji — saída 7h30.',chips:['chip-red:Amanhã Katsuoji — saída 7h30']}
+    ],
+    costs:[['Osaka Castle (3p)','¥1.800'],['Nishinomaru Garden','¥600'],['Museu de História (3p)','¥3.000'],['Shitennoji (3p)','¥1.500'],['Harukas 300 (3p)','¥6.000'],['Tempozan (3p)','¥2.700'],['Transporte','~¥2.100'],['TOTAL DIA','~¥17.700']]
+  },
+  '22': {
+    title:'Quarta 22/7 — Katsuoji + Amerikamura + Shinsekai',
+    phase:'Osaka', phaseColor:'var(--phase2)',
+    subtitle:'Templo das Darumas ⭐ 4.6 · Ritual Daruma · Amerikamura teen · Tower Slider · Despedida Osaka',
+    chips:['chip-purple:Katsuoji ⭐ 4.6','chip-red:IC Card obrigatório ônibus','chip-green:Katsuoji = floresta fresca'],
+    timeline:[
+      {t:'07h30',dur:'',dot:'#185FA5',title:'🏨 Saída hotel — IC Card obrigatório',sub:'Tênis fechado obrigatório. Midosuji Line: Honmachi → Minoh-Kayano (35 min, ¥430). Ônibus 30 não aceita dinheiro.',chips:['chip-red:Tênis fechado','chip-red:IC Card — ônibus não aceita dinheiro']},
+      {t:'08h10',dur:'',dot:'#BA7517',title:'🚌 Minoh-Kayano — ônibus 30',sub:'Stop 8. Ônibus 30 → Katsuo-ji (20 min, ¥800). Táxi alternativo: ¥3.500 (3p) — pode sair mais barato e sem espera.',chips:['chip-yellow:¥800/p ônibus','chip-gray:Táxi ¥3.500 = alternativa']},
+      {t:'08h45',dur:'2h15',dot:'#c0392b',title:'⛩️ Katsuoji — Templo das Darumas ⭐ 4.6',sub:'26.000m² entre montanhas. 1.300 anos de tradição. Milhares de Darumas em todos os cantos. Stamp Rally incluso. Lago com carpas, cachoeiras.',chips:['chip-purple:⭐ 4.6 · 11.736 avaliações','chip-green:¥500 + postal incluso'],
+        detail:[{c:'#c0392b',t:'Ritual Daruma: 1) Compre ¥500–2.000. 2) Escreva o desejo embaixo. 3) Pinte olho DIREITO. Olho esquerdo = quando o desejo se realiza.'},{c:'#c0392b',t:'Stamp Rally: 6 pontos escondidos pelo templo. Postal comemorativo completo.'},{c:'#2e7d32',t:'Táxi de volta: ¥3.500 para a estação Minoh-Kayano. Pode ser mais prático.'}]},
+      {t:'11h30',dur:'45 min',dot:'#2e7d32',title:'☕ Almoço em Shinsaibashi',sub:'De volta ao calor de Osaka — choque térmico. A/C obrigatório. Ramen, curry, sushi conveyor.',chips:['chip-red:Choque térmico montanha→cidade']},
+      {t:'13h00',dur:'2h30',dot:'#9b72cf',title:'🛍️ Amerikamura — Harajuku de Osaka',sub:'Big Step, Triangle Park, streetwear vintage, gacha. Para a filha de 15 anos.',chips:['chip-purple:Para teen','chip-gray:Streetwear vintage']},
+      {t:'17h00',dur:'45 min',dot:'#ff8c42',title:'🛝 Tower Slider Tsutenkaku',sub:'Escorregador externo do 5° andar. 10 seg de queda. ¥1.000. Vídeo QR gratuito.',chips:['chip-yellow:¥1.000','chip-purple:Vídeo QR grátis']},
+      {t:'18h00',dur:'2h',dot:'#c0392b',title:'🍢 Shinsekai — Despedida de Osaka',sub:'Último kushikatsu de Osaka. Daruma (1929). Tsutenkaku iluminada. Regra: NUNCA mergulhar 2x no molho.',chips:['chip-purple:Último kushikatsu','chip-red:Nunca mergulhar 2x']},
+      {t:'20h30',dur:'',dot:'#2e7d32',title:'🏨 Hotel — última noite em Osaka',sub:'Tennoji → Honmachi (5 min). Organizar malas para Quioto amanhã.',chips:['chip-yellow:Organizar malas para Quioto']}
+    ],
+    costs:[['Transporte Honmachi→Katsuoji','~¥3.690'],['Katsuoji entrada (3p)','¥1.500'],['Daruma dolls','¥2.000–6.000'],['Tower Slider (3p)','¥3.000'],['Transporte','~¥1.500'],['TOTAL DIA','~¥14.000']]
+  },
+  '23': {
+    title:'Quinta 23/7 — Checkout Osaka · Chegada Quioto',
+    phase:'Quioto', phaseColor:'var(--phase3)',
+    subtitle:'JR Kaisoku 28 min · Ryokan Yu No Yado Shoei · Nishiki Market · Kyoto Tower · Pontocho',
+    chips:['chip-purple:Ryokan onsen tattoo-friendly','chip-red:Nishiki fecha 18h','chip-blue:Quinta = Pontocho aberto ✅'],
+    timeline:[
+      {t:'11h00',dur:'',dot:'#2e7d32',title:'🏨 Checkout Osaka View Hotel Honmachi',sub:'Checkout 11h. JR Kaisoku de Osaka → Kyoto (28 min, ¥580/p). Atenção: parada curta — levante 3 min antes.',chips:['chip-red:Parada curta — levantar antes']},
+      {t:'12h30',dur:'30 min',dot:'#9b72cf',title:'🏯 Yu No Yado Shoei — check-in',sub:'128 Nishishinyashiki Kaminocho, Shimogyo Ward. Onsen 7h–22h. Tattoo-friendly ✅. Futon + tatami.',chips:['chip-green:Onsen tattoo-friendly ✅','chip-purple:Futon + tatami']},
+      {t:'14h00',dur:'2h',dot:'#ff8c42',title:'🍢 Nishiki Market — Cozinha de Quioto',sub:'10 min a pé. 400m cobertos, 400 anos de história. Wagyu ¥2.000–3.000, morangos gigantes, takoyaki, yuba, dango matcha.',chips:['chip-red:Fecha às 18h — entrar antes das 16h','chip-green:Comer andando aceito']},
+      {t:'17h00',dur:'60 min',dot:'#7b1fa2',title:'🗼 Kyoto Tower (Nidec) — pôr do sol',sub:'5 min de metrô ou 20 min a pé. ¥900. Vista 360°: Higashiyama, Arashiyama. Melhor 17h30–18h30.',chips:['chip-yellow:¥900/adulto','chip-blue:Pôr do sol 17h30']},
+      {t:'19h00',dur:'2h',dot:'#2e7d32',title:'🏮 Pontocho Alley — Jantar kawayuka',sub:'Beco paralelo ao Rio Kamo. Varandas de madeira sobre a água. Kaiseki ou izakaya. ⚠️ Quinta = aberto ✅ Reservar 3–4 semanas antes.',chips:['chip-green:Quinta aberto ✅','chip-red:Reservar kawayuka antecipado']},
+      {t:'21h30',dur:'',dot:'#9b72cf',title:'🏯 Retorno + Onsen noturno',sub:'Onsen até 22h. Amanhã Gion Matsuri — acordar 7h.',chips:['chip-red:Acordar 7h — Gion Matsuri']}
+    ],
+    costs:[['JR Osaka→Kyoto (3p)','¥1.740'],['Kyoto Tower (3p)','¥2.700'],['Jantar Pontocho','¥7.500–45.000'],['Nishiki Market snacks','~¥3.000'],['TOTAL DIA','~¥15.000']]
+  },
+  '24': {
+    title:'Sexta 24/7 — Gion Matsuri + Nijo + Kinkakuji + Pontocho',
+    phase:'Quioto', phaseColor:'var(--phase3)',
+    subtitle:'Ato Matsuri 9h30 · Yamaboko Junko · Hanamikoji · Nijo Castle · Kinkakuji · Pontocho',
+    chips:['chip-purple:Gion Matsuri UNESCO','chip-green:Gratuito assistir','chip-yellow:Pontocho sexta = reserva urgente'],
+    timeline:[
+      {t:'07h00',dur:'',dot:'#BA7517',title:'🏯 Café da manhã no ryokan',sub:'Café incluso. Levar yukata se possível. Sair 8h. 2 garrafas d\'água.',chips:['chip-gray:Café incluso']},
+      {t:'08h30',dur:'',dot:'#c0392b',title:'📍 Posição Karasuma-Oike',sub:'Chegar 1h antes. Calçada norte de Oike-dori = melhor posição. Carros saem às 9h30.',chips:['chip-red:Chegar 1h antes','chip-green:Gratuito']},
+      {t:'09h30',dur:'90 min',dot:'#c0392b',title:'🏮 Yamaboko Junko — 11 carros gigantes',sub:'UNESCO. 11 yamaboko até 25m. Música Gion-bayashi. Curva Shijo-Kawaramachi = tsuji-mawashi (12t virando). Chimaki jogados do topo.',chips:['chip-green:Gratuito','chip-blue:UNESCO']},
+      {t:'10h00',dur:'60 min',dot:'#BA7517',title:'⛩️ Yasaka Shrine + Hanagasa Junko',sub:'10 min a pé. ~1.000 pessoas com trajes tradicionais, geiko e maiko. Chega ~10h30.',chips:['chip-green:Gratuito','chip-purple:Geiko + maiko']},
+      {t:'11h00',dur:'45 min',dot:'#9b72cf',title:'🪭 Hanamikoji Street',sub:'5 min a pé. Casas de chá séc. XVIII. A rua mais fotogênica de Quioto. Foto da família.',chips:['chip-green:Gratuito','chip-gray:Foto obrigatória']},
+      {t:'12h00',dur:'75 min',dot:'#2e7d32',title:'🍱 Almoço A/C em Gion',sub:'Udon frio + matcha parfait. 12h–14h = A/C obrigatório.',chips:['chip-red:A/C 12h–14h']},
+      {t:'13h30',dur:'75 min',dot:'#185FA5',title:'🏯 Castelo de Nijo — Piso Nightingale',sub:'Táxi ¥1.200 ou ônibus 12. ¥1.300. Piso que "canta" ao pisar (uguisubari). Ninomaru Palace. Tigres dourados.',chips:['chip-yellow:¥1.300','chip-blue:Piso canta ao pisar']},
+      {t:'15h30',dur:'60 min',dot:'#c0392b',title:'🥇 Kinkakuji — Pavilhão Dourado',sub:'Ônibus Kinkakuji-michi (15 min). ¥500. Reflexo no lago. 15h30 = menos turistas. Matcha Sekkatei ¥600.',chips:['chip-yellow:¥500','chip-blue:Matcha Sekkatei ¥600']},
+      {t:'19h30',dur:'2h',dot:'#2e7d32',title:'🏮 Pontocho — Kawayuka sexta',sub:'Jantar varandas sobre o Rio Kamo. Noite de festival = mais pessoas de yukata passando embaixo.',chips:['chip-red:Reservar kawayuka 3+ semanas antes','chip-purple:Noite do festival']}
+    ],
+    costs:[['Nijo Castle (3p)','¥3.900'],['Kinkakuji (3p)','¥1.500'],['Matcha Sekkatei','¥1.800'],['Transporte','~¥3.000'],['Jantar Pontocho','¥7.500–45.000'],['TOTAL DIA','~¥17.700']]
+  },
+  '25': {
+    title:'Sábado 25/7 — Arashiyama + Ryoanji + Fushimi Inari',
+    phase:'Quioto', phaseColor:'var(--phase3)',
+    subtitle:'Bambu antes das 7h · Tenryuji UNESCO · Ryoanji 15 pedras · Fushimi Inari ⭐ 4.7',
+    chips:['chip-red:Acordar 5h30','chip-purple:Bambu antes das 7h = vazio','chip-green:Fushimi Inari ⭐ 4.7'],
+    timeline:[
+      {t:'05h45',dur:'',dot:'#185FA5',title:'🏨 Saída silenciosa do ryokan',sub:'Onigiri no konbini. JR Sagano Line: Kyoto Station → Saga-Arashiyama (17 min, ¥240).',chips:['chip-red:Acordar 5h30','chip-gray:Onigiri no konbini']},
+      {t:'06h20',dur:'20 min',dot:'#9b72cf',title:'🎋 Kimono Forest — Randen Station',sub:'600 colunas de kimono kyo-yuzen. Aberto 24h. Às 6h20 = vazio. Foto de abertura do dia.',chips:['chip-green:Gratuito · 24h']},
+      {t:'06h30',dur:'20 min',dot:'#2e7d32',title:'🌉 Togetsukyo Bridge — névoa matinal',sub:'5 min a pé. Ponte histórica séc. Heian. Névoa do Rio Katsura às 6h30 = foto mais dramática.',chips:['chip-green:Gratuito','chip-blue:Névoa às 6h30']},
+      {t:'06h55',dur:'90 min',dot:'#2e7d32',title:'🎋 Floresta de Bambus — antes das 7h',sub:'⚠️ ANTES DAS 7H = praticamente sozinhos. Som do bambu no vento. Foto do corredor sem pessoas. Nonomiya Shrine dentro.',chips:['chip-red:Antes das 7h = vazio','chip-green:Gratuito · 24h'],
+        detail:[{c:'#2e7d32',t:'Foto para cima = dossel de bambu convergindo = imagem icônica.'},{c:'#2e7d32',t:'Nonomiya Shrine: torii negro + pedra sagrada. Esfregue e faça um desejo.'},{c:'#c0392b',t:'Após as 8h30 = ombro a ombro. Saia antes disso.'}]},
+      {t:'08h30',dur:'60 min',dot:'#BA7517',title:'🌿 Tenryuji Garden — UNESCO',sub:'Abre exatamente 8h30. ¥500. Lago Sogen com carpas + montanha emprestada. Primeiros 30 min = vazio.',chips:['chip-yellow:¥500','chip-green:UNESCO World Heritage']},
+      {t:'10h00',dur:'90 min',dot:'#ff8c42',title:'🍡 Rua de Arashiyama + Almoço',sub:'Dango abre às 9h (¥300). Sorvete matcha (¥400). Almoço A/C antes do calor pico.',chips:['chip-purple:Dango ¥300','chip-red:A/C 11h–14h']},
+      {t:'11h30',dur:'75 min',dot:'#185FA5',title:'🪨 Ryoanji — Jardim Zen 15 Pedras',sub:'Ônibus 11 (30 min). ¥600. De qualquer ângulo, 1 pedra fica invisível. Enigma Zen 500 anos. Matcha Zoroku-an ¥600.',chips:['chip-yellow:¥600','chip-blue:500 anos de enigma']},
+      {t:'14h30',dur:'2h30',dot:'#c0392b',title:'⛩️ Fushimi Inari Taisha ⭐ 4.7',sub:'Metrô/ônibus 40 min. Gratuito · 24h. Suba além do Yotsutsuji. 90% dos turistas param antes. Vista de Quioto do alto.',chips:['chip-green:Gratuito','chip-purple:⭐ 4.7 — top Quioto'],
+        detail:[{c:'#c0392b',t:'Yotsutsuji (50–70 min subida): vista panorâmica de Quioto. Quase sozinhos.'},{c:'#c0392b',t:'Torii mais antigos e espaçados no topo — mais místicos que a base lotada.'},{c:'#2e7d32',t:'Inari-zushi na saída (¥300–500) — especialidade local exclusiva de Fushimi.'}]},
+      {t:'18h00',dur:'',dot:'#BA7517',title:'🍽️ Jantar + retorno ryokan',sub:'Bairro de saquê Fushimi ou JR → Kyoto Station. Onsen antes de dormir.',chips:['chip-green:Onsen até 22h']}
+    ],
+    costs:[['JR Kyoto→Arashiyama','¥720'],['Tenryuji Garden (3p)','¥1.500'],['Ryoanji (3p)','¥1.800'],['Ônibus Arashiyama→Ryoanji','¥690'],['JR Inari→Kyoto','¥450'],['Refeições','~¥5.000'],['TOTAL DIA','~¥10.160']]
+  },
+  '26': {
+    title:'Domingo 26/7 — Nara + Manga Museum',
+    phase:'Quioto', phaseColor:'var(--phase3)',
+    subtitle:'Nara: 1.200 cervos · Grande Buda · Kasuga Taisha · Manga Museum · Última noite ryokan',
+    chips:['chip-yellow:JR Nara direto 45 min','chip-purple:Manga Museum domingo ✅','chip-green:Nara tudo a pé'],
+    timeline:[
+      {t:'07h00',dur:'',dot:'#BA7517',title:'🏯 Café da manhã + saída 7h30',sub:'Café incluso (7h). JR Nara Line: Kyoto → JR Nara (45 min, ¥720).',chips:['chip-gray:JR direto']},
+      {t:'09h00',dur:'30 min',dot:'#2e7d32',title:'🗼 Kofukuji — Pagoda 5 andares',sub:'10 min a pé da estação. Pagoda 50m, séc. VIII. 2° mais alto do Japão. Primeiros cervos na praça.',chips:['chip-green:Gratuito exterior','chip-purple:Primeiros cervos']},
+      {t:'09h30',dur:'60 min',dot:'#2e7d32',title:'🦌 Nara Park — 1.200 Cervos Sagrados',sub:'Shika senbei ¥200/pacote. Cervos fazem reverência ao pedir biscoito. ⚠️ Guardar sacolas plásticas.',chips:['chip-green:Parque gratuito','chip-yellow:Biscoitos ¥200'],
+        detail:[{c:'#2e7d32',t:'Incline a cabeça e o cervo inclina de volta antes de aceitar o biscoito.'},{c:'#c0392b',t:'Guardar sacolas plásticas — cervos identificam o barulho e "atacam".'},{c:'#2e7d32',t:'Compre shika senbei nas barracas de cesta laranja.'}]},
+      {t:'10h30',dur:'75 min',dot:'#c0392b',title:'🏯 Todaiji — Grande Buda de 15m ⭐ 4.7',sub:'15 min a pé. ¥800. Maior edifício de madeira do mundo (57m). Buda 752 d.C. Pilar com buraco = boa sorte.',chips:['chip-yellow:¥800','chip-purple:⭐ 4.7 · 30k avaliações'],
+        detail:[{c:'#c0392b',t:'Sente-se e erga a cabeça — as fotos não transmitem a escala real.'},{c:'#c0392b',t:'Pilar com buraco: do mesmo tamanho da narina do Buda. A filha vai querer passar.'}]},
+      {t:'12h00',dur:'45 min',dot:'#BA7517',title:'⛩️ Kasuga Taisha — 3.000 Lanternas',sub:'20 min a pé. Gratuito exterior. Floresta primeva UNESCO. Omikuji de cervo em inglês ¥200.',chips:['chip-green:Gratuito exterior','chip-gray:Omikuji ¥200']},
+      {t:'13h30',dur:'60 min',dot:'#ff8c42',title:'🍛 Almoço Coco Ichibanya Curry',sub:'Perto estação JR Nara. ¥800–1.200. Menu em inglês + fotos. Escolha o nível de picância.',chips:['chip-green:Menu em inglês','chip-red:A/C obrigatório']},
+      {t:'15h30',dur:'90 min',dot:'#7b1fa2',title:'📚 Kyoto Manga Museum ⭐ 4.2',sub:'JR Nara → Kyoto (45 min). Metrô Karasuma → Karasuma-Oike. 2 min a pé. Domingo aberto ✅ 300.000 volumes do piso ao teto.',chips:['chip-green:Domingo aberto ✅','chip-yellow:¥900 adulto / ¥400 teen'],
+        detail:[{c:'#7b1fa2',t:'Zona de leitura no jardim da escola — pode sentar e ler qualquer volume.'},{c:'#7b1fa2',t:'Kamishibai: teatro de papel japonês — apresentação 3x por dia.'},{c:'#2e7d32',t:'Pokémon Center Kyoto: 12 min a pé — AEON Mall Kyoto.'}]},
+      {t:'18h00',dur:'',dot:'#2e7d32',title:'🍽️ Jantar + última noite no ryokan',sub:'Nishiki Market (8 min) ou Teramachi Shopping. Organizar malas — amanhã Shinkansen para Tóquio.',chips:['chip-red:Organizar malas para Tóquio','chip-green:Último onsen']}
+    ],
+    costs:[['JR Kyoto→Nara (3p ida+volta)','¥4.320'],['Todaiji (3p)','¥2.400'],['Kasuga (opcional 3p)','¥1.500'],['Biscoitos cervos','¥600'],['Manga Museum (3p)','¥2.200'],['Transporte metrô Kyoto','¥660'],['Refeições','~¥4.500'],['TOTAL DIA','~¥16.180']]
+  },
+  '27': {
+    title:'Segunda 27/7 — Checkout Quioto · Volta Tóquio',
+    phase:'Tóquio 2', phaseColor:'var(--phase4)',
+    subtitle:'Último onsen · Ekiben no trem · Nozomi ~11h · Nippon Seinenkan · Palácio Imperial · Omoide Yokocho',
+    chips:['chip-red:Shinjuku Gyoen FECHADO segundas','chip-blue:Assento esq. para Monte Fuji','chip-green:Palácio Imperial gratuito'],
+    timeline:[
+      {t:'07h00',dur:'',dot:'#BA7517',title:'🏯 Última manhã no ryokan',sub:'Café incluso (7h). Último onsen da viagem. Checkout 11h. Malas no trem — assento extra reservado Smart EX.',chips:['chip-green:Último onsen','chip-yellow:Checkout 11h']},
+      {t:'10h30',dur:'',dot:'#BA7517',title:'🍱 Kyoto Station — Ekiben',sub:'The Cube 2° andar. Comprar ANTES das catracas. Ekiben com cordão aquecedor = reação química → quente em 5 min. ¥1.500–2.000.',chips:['chip-purple:Cordão aquecedor = esquenta sozinho','chip-red:Comprar ANTES das catracas']},
+      {t:'11h00',dur:'2h15',dot:'#185FA5',title:'🚄 Nozomi — Kyoto → Shinagawa',sub:'Assento extra de bagagem (Smart EX). Assento D ou E (esquerda) para Monte Fuji ~35 min após partir. Segunda = trem menos lotado.',chips:['chip-blue:Assento D ou E — esquerda','chip-gray:Fuji ~35 min após Kyoto']},
+      {t:'13h15',dur:'',dot:'#2e7d32',title:'🏨 Nippon Seinenkan Hotel',sub:'Kasumigaokamachi, Shinjuku. Ofuro no hotel. Vista Estádio Nacional. Check-in 15h.',chips:['chip-green:Ofuro no hotel','chip-gray:Vista Estádio Nacional']},
+      {t:'15h00',dur:'90 min',dot:'#2e7d32',title:'🏯 Palácio Imperial — Fosso + Nijubashi',sub:'⚠️ Shinjuku Gyoen FECHADO às segundas. Alternativa: exterior do Palácio + Kitanomaru Park — gratuito, aberto todos os dias. Ponte Nijubashi + cisnes.',chips:['chip-red:Shinjuku Gyoen fechado segunda','chip-green:Gratuito · Todos os dias']},
+      {t:'18h30',dur:'90 min',dot:'#c0392b',title:'🍢 Omoide Yokocho — Boas-vindas a Tóquio',sub:'Beco yakitori anos 1950 em Shinjuku. Segunda = menos turistas. Alternativa: Golden Gai.',chips:['chip-green:Segunda = menos turistas','chip-red:Dormir cedo — DisneySea amanhã 7h']}
+    ],
+    costs:[['Ekiben (3p)','~¥4.500'],['Transporte Shinagawa→Hotel','~¥2.500'],['Palácio Imperial','Gratuito'],['Jantar Omoide Yokocho','~¥4.500'],['TOTAL DIA','~¥11.500']]
+  },
+  '28': {
+    title:'Terça 28/7 — Tokyo DisneySea',
+    phase:'Tóquio 2', phaseColor:'var(--phase4)',
+    subtitle:'Fantasy Springs primeiro · Harry Potter · Premier Access · Fantasmic! 21h',
+    chips:['chip-green:Terça = menos lotado','chip-red:Premier Access obrigatório','chip-blue:Fantasy Springs prioridade'],
+    timeline:[
+      {t:'07h00',dur:'',dot:'#2e7d32',title:'🚇 Saída hotel → DisneySea',sub:'Hotel → Harajuku JR (20 min a pé) → Maihama JR Keiyo (~45 min) → Disney Resort Line → DisneySea (~10 min). Total: ~1h15.',chips:['chip-gray:~1h15 de viagem']},
+      {t:'08h15',dur:'',dot:'#c0392b',title:'⚡ Fila externa antes da abertura',sub:'Chegue 15 min antes. Tickets e Premier Access no celular. Estratégia: Fantasy Springs PRIMEIRO.',chips:['chip-red:Tickets no celular']},
+      {t:'08h30',dur:'90 min',dot:'#c0392b',title:'🏰 Fantasy Springs — PRIMEIRO',sub:'Frozen Kingdom, Peter Pan\'s Neverland, Rapunzel\'s Forest. Nova área 2024. Premier Access separado.',chips:['chip-red:Ir PRIMEIRO','chip-blue:Área mais nova']},
+      {t:'10h00',dur:'90 min',dot:'#4cc9f0',title:'⚡ Harry Potter — Premier Access',sub:'Forbidden Journey com Premier Access. Hogsmeade. Butterbeer gelado ¥900 — obrigatório em julho.',chips:['chip-green:Premier Access','chip-purple:Butterbeer ¥900']},
+      {t:'12h00',dur:'2h',dot:'#2e7d32',title:'🍽️ Almoço A/C — reserve no app',sub:'Three Broomsticks ou restaurante com A/C. 12h–14h = pico de calor.',chips:['chip-red:Pico calor 12h–14h','chip-green:Reserve no app antes']},
+      {t:'14h00',dur:'4h',dot:'#BA7517',title:'🎡 Tarde livre',sub:'Indiana Jones, 20.000 Léguas, Sindbad, StormRider. Shows aquáticos. Jantar no parque.',chips:['chip-gray:Indiana Jones','chip-gray:Sindbad']},
+      {t:'21h00',dur:'',dot:'#9b72cf',title:'🎆 Fantasmic! + Retorno',sub:'Show de projeção + fogo na lagoa. Não perca. Retorno ~22h ao hotel.',chips:['chip-purple:Não perca o Fantasmic!','chip-red:Retorno ~22h']}
+    ],
+    costs:[['Ingressos DisneySea (3p)','~¥30.000'],['Premier Access','~¥10.000–20.000'],['Refeições no parque','~¥9.000'],['Transporte (3p)','~¥3.000'],['TOTAL DIA','~¥52.000–62.000']]
+  },
+  '29': {
+    title:'Quarta 29/7 — Espectro Completo de Tóquio',
+    phase:'Tóquio 2', phaseColor:'var(--phase4)',
+    subtitle:'Meiji Shrine · Harajuku · teamLab Borderless · Compras finais · Preparar mala',
+    chips:['chip-purple:teamLab ⭐ 4.6 TIME 2024','chip-red:Reservar teamLab agora','chip-yellow:Último dia ativo'],
+    timeline:[
+      {t:'08h00',dur:'90 min',dot:'#2e7d32',title:'⛩️ Meiji Shrine + Yoyogi Park',sub:'15 min a pé do hotel. Torii de madeira 12m (maior do Japão). Floresta 100.000 árvores. Barris de saquê ao Imperador. Amuleto ¥500.',chips:['chip-green:Gratuito','chip-gray:15 min do hotel']},
+      {t:'10h00',dur:'90 min',dot:'#c0392b',title:'👗 Harajuku — Takeshita + almoço',sub:'Moda excêntrica, cafés com animais, crepes japoneses. Quarta = menos lotado. Almoço aqui.',chips:['chip-purple:Última Harajuku','chip-green:Quarta = tranquilo']},
+      {t:'12h30',dur:'60 min',dot:'#BA7517',title:'☕ Almoço Azabudai Hills',sub:'Hibiya Line: Harajuku → Kamiyacho (25 min). Azabudai Hills = mini cidade. A/C obrigatório 12h–14h.',chips:['chip-red:A/C 12h–14h obrigatório']},
+      {t:'14h00',dur:'2h30',dot:'#7b1fa2',title:'🌌 teamLab Borderless — Azabudai Hills',sub:'2 min da saída 5 de Kamiyacho (Hibiya Line). 75+ obras sem fronteiras. Abre 10h, fecha 21h.',chips:['chip-red:Reservar teamlab.art AGORA','chip-purple:⭐ 4.6 · 28k avaliações','chip-blue:Roupa CLARA obrigatória'],
+        detail:[{c:'#7b1fa2',t:'Roupa branca/pastel — as projeções refletem no tecido.'},{c:'#7b1fa2',t:'Calça ou short — pisos espelhados. Museu empresta wrap gratuito.'},{c:'#7b1fa2',t:'Locker gratuito na entrada — deixe mochilas.'},{c:'#7b1fa2',t:'EN TEA HOUSE: flores no chá reagem ao copo. Não pule.'},{c:'#2e7d32',t:'Reservar em teamlab.art/e/tokyo para quarta 29/7 às 14h.'}]},
+      {t:'18h00',dur:'2h',dot:'#c0392b',title:'🛍️ Compras finais — Don Quijote',sub:'Hibiya Line → Shinjuku. Don Quijote 24h. Kit Kat japoneses, cosméticos, gacha. Tax free acima de ¥5.000.',chips:['chip-green:Don Quijote 24h','chip-gray:Tax free com passaporte']},
+      {t:'21h00',dur:'',dot:'#2e7d32',title:'🏨 Preparar mala para o voo',sub:'Passaportes no carry-on. Power banks = carry-on (NUNCA na despachada). Ienes ¥3.000–5.000 para Duty Free. Confirmar táxi app GO.',chips:['chip-red:Power bank = carry-on obrigatório','chip-yellow:Confirmar táxi app GO']}
+    ],
+    costs:[['teamLab Borderless (3p)','~¥9.000'],['Metrô dia','~¥2.100'],['Refeições','~¥9.000'],['Compras Don Quijote','variável'],['TOTAL DIA','~¥20.100+']]
+  },
+  '30': {
+    title:'Quinta 30/7 — Voo JAL HND → JFK',
+    phase:'Tóquio 2', phaseColor:'var(--phase4)',
+    subtitle:'Saída 7h30 · HND T3 · TIAT Sky Lounge · Boarding 11h25 · Sayōnara Japão 🇯🇵',
+    chips:['chip-red:Saída 7h30 MÁXIMO','chip-green:Lounge TIAT (DragonPass)','chip-blue:JAL A350 · 14h35'],
+    timeline:[
+      {t:'06h00',dur:'',dot:'#4cc9f0',title:'☀️ Acordar + café + check final',sub:'Verificar passaportes, cartões de embarque, câmeras carregadas.',chips:['chip-red:Passaportes — verificar AGORA']},
+      {t:'07h30',dur:'',dot:'#c0392b',title:'🚕 SAÍDA — Táxi Jumbo para HND T3',sub:'App GO reservado na noite anterior. Nippon Seinenkan → HND T3: 40–55 min. Chegada ~8h30.',chips:['chip-red:Reservar app GO dia 29 à noite']},
+      {t:'08h30',dur:'',dot:'#2e7d32',title:'✈️ HND T3 — Check-in + Imigração + Lounge',sub:'Check-in JAL. Imigração Visit Japan Web QR. TIAT Sky Lounge (DragonPass) para café japonês final. Duty Free. Boarding 11h25.',chips:['chip-green:TIAT Sky Lounge','chip-blue:Duty Free — últimos ienes']},
+      {t:'11h55',dur:'',dot:'#4cc9f0',title:'✈️ JAL AA8495 HND → JFK · Sayōnara 🇯🇵',sub:'Metal JAL A350-1000. 14h35 de voo. 15 dias inesquecíveis. 20 anos de casamento celebrados. Uma filha de 15 anos que vai contar essa história para sempre.',chips:['chip-blue:JAL A350 · 14h35','chip-purple:Sayōnara, Japão!']}
+    ],
+    costs:[['Táxi HND','~¥5.000'],['Duty Free','variável'],['TOTAL DIA','~¥5.000+']]
+  }
+};
+
+// ─── NAVIGATION ─────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  if (id === 'days') renderDay(currentDay);
+}
+
+function goToDay(d) {
+  showPage('days');
+  selectDay(d);
+}
+
+// ─── DAY RENDERING ───────────────────────────────────────────────
+let currentDay = '15';
+
+function selectDay(d) {
+  currentDay = d;
+  document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
+  const pill = document.getElementById('pill-' + d);
+  if (pill) { pill.classList.add('active'); pill.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
+  renderDay(d);
+}
+
+const DOT_COLORS = {
+  green:'#06d6a0', blue:'#4cc9f0', purple:'#9b72cf',
+  red:'#ff4d6d', orange:'#ff8c42', yellow:'#ffd166', pink:'#f72585'
+};
+
+function chip(str) {
+  if (!str) return '';
+  const [cls, ...rest] = str.split(':');
+  return `<span class="chip ${cls}">${rest.join(':')}</span>`;
+}
+
+function renderDay(d) {
+  const data = DAYS[d];
+  if (!data) return;
+  let html = '';
+  // Header card
+  html += `<div class="day-header-card">
+    <div class="day-title-row">
+      <div class="day-title">${data.title}</div>
+      <div class="day-phase-badge" style="background:rgba(255,255,255,.08);color:${data.phaseColor}">${data.phase}</div>
+    </div>
+    <div class="day-subtitle">${data.subtitle}</div>
+    <div class="day-chips">${data.chips.map(chip).join('')}</div>
+  </div>`;
+
+  // Timeline
+  html += `<div class="timeline"><div class="tl-spine"></div>`;
+  data.timeline.forEach((item, idx) => {
+    const detailId = `det_${d}_${idx}`;
+    html += `<div class="tl-item">
+      <div class="tl-time"><div class="tl-hour">${item.t}</div>${item.dur ? `<div class="tl-dur">${item.dur}</div>` : ''}</div>
+      <div class="tl-dot" style="background:${item.dot}"></div>
+      <div class="tl-body">
+        <div class="tl-title">${item.title}</div>
+        <div class="tl-sub">${item.sub}</div>
+        <div class="tl-chips">${(item.chips||[]).map(chip).join('')}</div>
+        ${item.detail ? `<button class="expand-btn" onclick="toggleDet('${detailId}')">+ detalhes</button>
+        <div class="expand-content" id="${detailId}">
+          ${item.detail.map(r => `<div class="expand-row"><div class="expand-dot" style="background:${r.c}"></div><div class="expand-text">${r.t}</div></div>`).join('')}
+        </div>` : ''}
+      </div>
+    </div>`;
+    if (idx < data.timeline.length - 1) {
+      html += `<div class="tl-transit"></div>`;
+    }
+  });
+  html += `</div>`;
+
+  // Costs
+  if (data.costs) {
+    html += `<div class="day-costs"><div class="costs-title">💴 Custos do dia (3 pessoas)</div>`;
+    data.costs.forEach((row, i) => {
+      const isTotal = i === data.costs.length - 1;
+      html += `<div class="cost-row ${isTotal ? 'total' : ''}"><span class="cost-label">${row[0]}</span><span class="cost-amount">${row[1]}</span></div>`;
+    });
+    html += `</div>`;
+  }
+
+  document.getElementById('day-content').innerHTML = html;
+  window.scrollTo(0,0);
+}
+
+function toggleDet(id) {
+  const el = document.getElementById(id);
+  const btn = el.previousElementSibling;
+  el.classList.toggle('open');
+  btn.textContent = el.classList.contains('open') ? '− detalhes' : '+ detalhes';
+}
+
+function toggleInfo(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+  const arrow = header.querySelector('span[style]') || header.lastChild;
+}
+
+// Init
+renderDay('15');
+</script>
+
+<script>
+// PWA - Service Worker e instalação
+(function() {
+  // Service Worker para cache offline
+  if ('serviceWorker' in navigator) {
+    var swContent = [
+      "const C='japao2026-v2';",
+      "self.addEventListener('install',e=>self.skipWaiting());",
+      "self.addEventListener('activate',e=>self.clients.claim());",
+      "self.addEventListener('fetch',e=>{",
+      "  e.respondWith(caches.open(C).then(function(cache){",
+      "    return cache.match(e.request).then(function(cached){",
+      "      var net=fetch(e.request).then(function(r){",
+      "        if(r&&r.status===200)cache.put(e.request,r.clone());",
+      "        return r;",
+      "      }).catch(function(){return cached;});",
+      "      return cached||net;",
+      "    });",
+      "  }));",
+      "});"
+    ].join('\n');
+    var blob = new Blob([swContent], {type:'application/javascript'});
+    var url = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url)
+      .then(function(r){ console.log('SW OK'); })
+      .catch(function(e){ console.log('SW skip:', e.message); });
+  }
+
+  // Banner "Adicionar à tela inicial"
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferred = e;
+    var b = document.createElement('div');
+    b.id = 'ibanner';
+    b.style.cssText = 'position:fixed;bottom:72px;left:50%;transform:translateX(-50%);'+
+      'background:#1a1a26;border:1px solid rgba(76,201,240,.4);border-radius:12px;'+
+      'padding:10px 16px;display:flex;align-items:center;gap:10px;z-index:200;'+
+      'box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:320px;width:90%;';
+    b.innerHTML =
+      '<span style="font-size:20px">📲</span>'+
+      '<div style="flex:1">'+
+        '<div style="font-size:12px;font-weight:700;color:#e8e8f0">Adicionar à tela inicial</div>'+
+        '<div style="font-size:10px;color:#8888a8">Use offline no Japão</div>'+
+      '</div>'+
+      '<button id="ibtn" style="background:#4cc9f0;color:#0a0a0f;border:none;border-radius:8px;'+
+        'padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer">Instalar</button>'+
+      '<button onclick="document.getElementById(\'ibanner\').remove()" '+
+        'style="background:none;border:none;color:#8888a8;font-size:18px;cursor:pointer">×</button>';
+    document.body.appendChild(b);
+    document.getElementById('ibtn').addEventListener('click', function() {
+      if (deferred) { deferred.prompt(); deferred = null; b.remove(); }
+    });
+    setTimeout(function(){ if(document.getElementById('ibanner')) document.getElementById('ibanner').remove(); }, 8000);
+  });
+})();
+</script>
+</body>
