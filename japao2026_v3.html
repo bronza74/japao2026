@@ -226,8 +226,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     <div class="day-pill" onclick="selectDay('17')" id="pill-17"><div class="pill-date">17/7</div><div class="pill-label">Sex Hakone</div></div>
     <div class="day-pill" onclick="selectDay('18')" id="pill-18"><div class="pill-date">18/7</div><div class="pill-label">Sáb Clássicos</div></div>
     <div class="day-pill" onclick="selectDay('19')" id="pill-19"><div class="pill-date">19/7</div><div class="pill-label">Dom Osaka</div></div>
-    <div class="day-pill" onclick="selectDay('20')" id="pill-20"><div class="pill-date">20/7</div><div class="pill-label">Seg USJ</div></div>
-    <div class="day-pill" onclick="selectDay('21')" id="pill-21"><div class="pill-date">21/7</div><div class="pill-label">Ter Histórico</div></div>
+    <div class="day-pill" onclick="selectDay('20')" id="pill-20"><div class="pill-date">20/7</div><div class="pill-label">Seg Histórico</div></div>
+    <div class="day-pill" onclick="selectDay('21')" id="pill-21"><div class="pill-date">21/7</div><div class="pill-label">Ter USJ</div></div>
     <div class="day-pill" onclick="selectDay('22')" id="pill-22"><div class="pill-date">22/7</div><div class="pill-label">Qua Katsuoji</div></div>
     <div class="day-pill" onclick="selectDay('23')" id="pill-23"><div class="pill-date">23/7</div><div class="pill-label">Qui Quioto</div></div>
     <div class="day-pill" onclick="selectDay('24')" id="pill-24"><div class="pill-date">24/7</div><div class="pill-label">Sex Matsuri</div></div>
@@ -340,15 +340,19 @@ timeline:[
 {t:'18h30',dur:'',dot:'#2e7d32',title:'🍜 Jantar + dormir cedo',sub:'Ramen ou sushi simples. Cama às 20h. Amanhã é Ghibli.',chips:['chip-red:Dormir cedo']}],
 costs:[['Suica (3p)','¥15.000'],['Transporte HND','¥3.600'],['Refeições','~¥6.000'],['TOTAL','~¥24.600']]},
 
-'16':{title:'Quinta 16/7 — Ghibli + Kichijoji + Shibuya',phase:'Tóquio 1',phaseColor:'var(--p1)',subtitle:'Museu Ghibli (loteria!) · Kichijoji · Shibuya Sky ao pôr do sol',chips:['chip-red:⚠️ Ghibli = Loteria','chip-blue:Shibuya Sky 17h'],
+'16':{title:'Quinta 16/7 — Ghibli + Kichijoji + Shibuya',phase:'Tóquio 1',phaseColor:'var(--p1)',subtitle:'Ghibli Museum · Kichijoji · Hachiko · Shibuya Sky · Crossing · Starbucks · Jantar',chips:['chip-red:Ghibli = Loteria','chip-blue:Shibuya Sky 17h — ou gratis','chip-green:Hachiko + Crossing gratuito'],
 timeline:[
 {t:'07h30',dur:'',dot:'#BA7517',title:'🏨 Saída hotel',sub:'Trem Hibiya → Nakameguro → Inokashira Line → Kichijoji.',chips:['chip-gray:Inokashira Line']},
-{t:'08h30',dur:'60 min',dot:'#2e7d32',title:'🌳 Inokashira Park',sub:'Parque tranquilo. Lago com barcos de remo ¥700/30min. Antes da multidão.',chips:['chip-green:Gratuito']},
-{t:'10h00',dur:'90 min',dot:'#f72585',title:'🐱 Ghibli Museum — slot 10h ⚠️ LOTERIA',sub:'Ingresso via LOTERIA em museum-tickets.nintendo.com. Sem loteria = sem entrada. ¥1.000/adulto.',chips:['chip-red:Loteria obrigatória','chip-purple:¥1.000/adulto'],detail:[{c:'#f72585',t:'Sistema de loteria mensal. Verificar disponibilidade diariamente 10h JST.'},{c:'#f72585',t:'Sala de cinema exclusiva inclusa — cada sessão tem um curta inédito.'}]},
-{t:'12h00',dur:'90 min',dot:'#ff8c42',title:'🍜 Almoço em Kichijoji + Ghibli Shop',sub:'Harmonica Yokocho (izakayas anos 1950). Donguri Republic — loja Ghibli oficial.',chips:['chip-purple:Ghibli shop','chip-green:A/C']},
-{t:'17h00',dur:'60 min',dot:'#4cc9f0',title:'🌆 Shibuya Sky — Pôr do sol',sub:'¥2.200. Deck ao ar livre. Slot 17h = luz dourada. Reservar online.',chips:['chip-yellow:¥2.200','chip-blue:Reserve online']},
-{t:'18h30',dur:'',dot:'#c0392b',title:'🏃 Shibuya Crossing + Jantar',sub:'Starbucks 2° andar para a melhor foto. Ichiran Ramen ou conveyor sushi. Hibiya Line de volta.',chips:['chip-gray:Hibiya Line volta']}],
-costs:[['Inokashira (barcos)','¥2.100'],['Ghibli (3p)','¥3.000'],['Shibuya Sky (3p)','¥6.600'],['Transporte','~¥2.100'],['TOTAL','~¥22.800']]},
+{t:'08h30',dur:'60 min',dot:'#2e7d32',title:'🌳 Inokashira Park',sub:'Parque tranquilo. Lago com barcos de remo ¥700/30min. Patos, carpas, templo Benzaiten no meio do lago. Antes da multidão de Kichijoji.',chips:['chip-green:Gratuito']},
+{t:'10h00',dur:'90 min',dot:'#f72585',title:'🐱 Ghibli Museum — slot 10h ⚠️ LOTERIA',sub:'Ingresso via LOTERIA em museum-tickets.nintendo.com. Sem loteria = sem entrada. ¥1.000/adulto. Sala de cinema exclusiva inclusa.',chips:['chip-red:Loteria obrigatória','chip-purple:¥1.000/adulto'],detail:[{c:'#f72585',t:'Sistema de loteria mensal. Verificar disponibilidade diariamente 10h JST.'},{c:'#f72585',t:'Sala de cinema exclusiva inclusa — cada sessao tem um curta inedito nao disponivel em nenhum outro lugar.'},{c:'#f72585',t:'Sem ingressos na porta — toda entrada e por reserva antecipada, sem excecoes.'}]},
+{t:'12h00',dur:'90 min',dot:'#ff8c42',title:'🍜 Almoço em Kichijoji + Ghibli Shop',sub:'Harmonica Yokocho (beco de izakayas dos anos 1950). Donguri Republic — loja Ghibli oficial com produtos exclusivos do museu.',chips:['chip-purple:Ghibli shop','chip-green:A/C']},
+{t:'14h00',dur:'',dot:'#185FA5',title:'🚃 Kichijoji → Shibuya',sub:'Inokashira Line: Kichijoji → Shibuya direto (17 min, ¥220). Linha panoramica — trem passa por bairros residenciais tranquilos.',chips:['chip-gray:17 min direto']},
+{t:'14h20',dur:'20 min',dot:'#06d6a0',title:'🐕 Hachiko Statue — Saída Hachiko de Shibuya v3',sub:'Na saida Hachiko da estacao Shibuya (West Exit). A estatua mais fotografada de Toquio. Historia: Hachiko esperou seu dono por 10 anos na estacao depois da morte dele em 1925. Simbolo de fidelidade no Japao.',chips:['chip-green:v3','chip-green:Gratuito','chip-blue:2 min da estacao'],detail:[{c:'#06d6a0',t:'Hachiko (1923-1935): Akita que ia buscar o dono professor Ueno na estacao todo dia. Quando o professor morreu, Hachiko continuou indo ate a estacao todos os dias por 9 anos e 9 meses.'},{c:'#06d6a0',t:'Foto dica: chegue na estatua e fotografie com a estacao ao fundo — melhor angulo. Em dias de semana as 14h ainda esta tranquilo.'},{c:'#06d6a0',t:'E o ponto de encontro mais famoso de Toquio — dizer que vai se encontrar em Hachiko e comprendido por qualquer japones.'}]},
+{t:'14h45',dur:'45 min',dot:'#c0392b',title:'🏃 Shibuya Crossing — O cruzamento mais famoso do mundo',sub:'3 min a pe de Hachiko. Ate 3.000 pessoas cruzam simultaneamente no sinal. Melhor foto: Starbucks 2 andar da loja defronte (gratis — so pedir um cafe). Vista de cima do caos humano.',chips:['chip-green:Gratuito','chip-blue:Starbucks 2 andar = vista perfeita'],detail:[{c:'#c0392b',t:'Starbucks Shibuya Crossing: entre pela porta lateral, suba para o 2 andar, sente na janela. Peca um cafe gelado (¥600) e fotografe o crossing de cima — sem custo de mirante.'},{c:'#c0392b',t:'Dica: sinal verde dura apenas 60 segundos. Prepare a camera antes. O fluxo maior e no sentido diagonal.'},{c:'#c0392b',t:'Melhor horario para foto de cima: 17h-18h quando o movimento e intenso e o sol esta baixo.'}]},
+{t:'15h30',dur:'60 min',dot:'#BA7517',title:'☕ Pausa A/C + decisão: Shibuya Sky ou opção gratuita',sub:'Cafe ou lanche em Shibuya com A/C (15h-17h = pico do calor). Hora de decidir: Shibuya Sky pago (¥2.200) ou opção gratuita equivalente.',chips:['chip-red:Pico calor 15h-17h','chip-yellow:Decidir aqui'],detail:[{c:'#BA7517',t:'OPCAO A — Shibuya Sky ¥2.200/adulto (¥6.600 familia): deck ao ar livre 360 no topo do Scramble Square. Slot 17h = luz dourada do por do sol. Reservar online.'},{c:'#06d6a0',t:'OPCAO B — GRATUITA: Roof Garden do Shibuya Hikarie (11 andar), Terrace do Shibuya 109 (sem custo), ou Tokyo Metropolitan Government Building em Shinjuku (gratis, vista identica ao Shibuya Sky mas diferente regiao).'},{c:'#06d6a0',t:'OPCAO C — GRATUITA equivalente aqui mesmo: Rooftop do Shibuya Scramble Square B1F Shopping (área publica externa). Ou o terraço do Loft Shibuya (5 andar, gratis, vista parcial do crossing).'}]},
+{t:'17h00',dur:'60 min',dot:'#4cc9f0',title:'🌆 Shibuya Sky — Pôr do sol 360° (se opção A)',sub:'Deck ao ar livre no topo do Scramble Square. Vista do crossing, Mont Fuji em dia claro, Toquio ao entardecer. Slot 17h = luz dourada. Reservar online com antecedencia.',chips:['chip-yellow:¥2.200/adulto','chip-blue:Reservar online','chip-gray:Opcional — ver opcoes gratuitas']},
+{t:'18h30',dur:'',dot:'#2e7d32',title:'🍜 Jantar em Shibuya',sub:'Ichiran Ramen (cabines individuais, sem precisar falar japones), conveyor belt sushi Sushiro, ou izakaya em Nonbei Yokocho (beco de bares ao lado do Crossing). Hibiya Line de volta → Tsukiji.',chips:['chip-purple:Ichiran Ramen','chip-gray:Nonbei Yokocho','chip-blue:Hibiya Line volta']}],
+costs:[['Inokashira (barcos)','¥2.100'],['Ghibli Museum (3p)','¥3.000'],['Hachiko + Crossing','Gratuito'],['Shibuya Sky (3p) — opcional','¥6.600'],['Transporte','~¥2.100'],['TOTAL com Sky','~¥22.800'],['TOTAL sem Sky','~¥16.200']]},
 
 '17':{title:'Sexta 17/7 — Hakone (dia inteiro)',phase:'Tóquio 1',phaseColor:'var(--p1)',subtitle:'Romancecar · Open-Air Museum · Owakudani · Barco Pirata · Onsen',chips:['chip-red:Romancecar reservar 17/6','chip-blue:Hakone Free Pass ¥7.100'],
 timeline:[
@@ -392,18 +396,7 @@ timeline:[
 {t:'21h00',dur:'',dot:'#185FA5',title:'🏨 Hotel — dormir cedo',sub:'USJ amanhã — acordar 6h30.',chips:['chip-red:Acordar 6h30']}],
 costs:[['Nozomi (3p)','¥43.350'],['Metrô Osaka','~¥2.100'],['Almoço + jantar','~¥10.000'],['TOTAL','~¥55.450']]},
 
-'20':{title:'Segunda 20/7 — Universal Studios Japan',phase:'Osaka',phaseColor:'var(--p2)',subtitle:'Super Nintendo World PRIMEIRO · Harry Potter · Express Pass 3 · Tarde livre',chips:['chip-red:Express Pass 3 — Klook agora','chip-blue:Nintendo World PRIMEIRO'],
-timeline:[
-{t:'06h30',dur:'',dot:'#BA7517',title:'☀️ Acordar + konbini',sub:'Roupa leve, tênis, FPS60+, chapéu. Ingressos e Express Pass no celular.',chips:['chip-red:Julho = 34°C']},
-{t:'07h30',dur:'',dot:'#185FA5',title:'🚇 Metrô para Universal City',sub:'Midosuji→Namba→JR Yumesaki→Universal City. ¥370.',chips:[]},
-{t:'08h30',dur:'90 min',dot:'#c0392b',title:'🍄 Super Nintendo World — PRIMEIRO',sub:'Mario Kart com Express Pass (15 min vs 90+ sem). Power-Up Band ¥3.500. Yoshi\'s Adventure.',chips:['chip-green:Express Pass','chip-purple:Power-Up Band ¥3.500']},
-{t:'10h00',dur:'90 min',dot:'#4cc9f0',title:'⚡ Wizarding World of Harry Potter',sub:'Forbidden Journey (Express Pass). Butterbeer gelado ¥900. Varinha ¥4.000.',chips:['chip-green:Express Pass','chip-blue:Butterbeer ¥900']},
-{t:'12h00',dur:'2h',dot:'#2e7d32',title:'🍽️ Almoço A/C — reserve no app',sub:'Three Broomsticks ou similar. Pico do calor 12h–14h.',chips:['chip-red:A/C obrigatório']},
-{t:'14h00',dur:'4h30',dot:'#BA7517',title:'🎡 Tarde livre — restante do parque',sub:'Minion Park, Jaws, Hollywood Dream, SpiderMan 4D. Compras na loja oficial.',chips:['chip-purple:Minion Park','chip-gray:Hollywood Dream']},
-{t:'18h30',dur:'',dot:'#185FA5',title:'🏠 Retorno hotel',sub:'Jantar opcional em Dotonbori no caminho.',chips:[]}],
-costs:[['Ingressos USJ (3p)','~¥30.000'],['Express Pass 3 (3p)','~¥25.000'],['Power-Up Band','¥3.500'],['Refeições','~¥9.000'],['Transporte','~¥2.100'],['TOTAL','~¥69.600']]},
-
-'21':{title:'Terça 21/7 — Clássicos + Kaiyukan Aquarium',phase:'Osaka',phaseColor:'var(--p2)',subtitle:'Castelo · Museu História · Shitennoji · Harukas 300 · Kaiyukan Aquarium 🆕 · Tempozan',chips:['chip-purple:Harukas 300 #1 TripAdvisor','chip-green:🆕 Kaiyukan Aquarium','chip-blue:Terça = menos fila'],
+'20':{title:'Segunda 20/7 — Clássicos + Kaiyukan Aquarium',phase:'Osaka',phaseColor:'var(--p2)',subtitle:'Castelo · Museu História · Shitennoji · Harukas 300 · Kaiyukan Aquarium 🆕 · Tempozan',chips:['chip-purple:Harukas 300 #1 TripAdvisor','chip-green:🆕 Kaiyukan Aquarium','chip-blue:Segunda = dia de semana'],
 timeline:[
 {t:'08h00',dur:'45 min',dot:'#c0392b',title:'🏯 Osaka Castle Park + Nishinomaru Garden',sub:'Chegue às 8h. Fosso granito 21m. Nishinomaru Garden (¥200) = melhor foto. Terça = aberto ✅',chips:['chip-green:Parque gratuito','chip-yellow:Nishinomaru ¥200']},
 {t:'09h00',dur:'90 min',dot:'#c0392b',title:'🏯 Castelo de Osaka — Interior',sub:'¥600. 8 andares A/C. Armadura de Hideyoshi, Batalha 3D, Andar 8 vista 360°.',chips:['chip-yellow:¥600','chip-green:A/C total']},
@@ -416,6 +409,17 @@ timeline:[
 {t:'19h30',dur:'45 min',dot:'#185FA5',title:'🎡 Roda Gigante Tempozan',sub:'2 min a pé do Kaiyukan. ¥900. Solicite cabine transparente. Vista noturna de Osaka Bay.',chips:['chip-yellow:¥900','chip-blue:Cabine transparente grátis']},
 {t:'21h00',dur:'',dot:'#2e7d32',title:'🏨 Retorno hotel + jantar',sub:'Chuo Line → Honmachi (15 min). Amanhã Katsuoji — saída 7h30.',chips:['chip-red:Katsuoji amanhã 7h30']}],
 costs:[['Osaka Castle (3p)','¥1.800'],['Museu História (3p)','¥3.000'],['Shitennoji (3p)','¥1.500'],['Harukas 300 (3p)','¥6.000'],['Kaiyukan (3p)','¥8.100'],['Tempozan (3p)','¥2.700'],['Transporte','~¥2.100'],['TOTAL','~¥25.200']]},
+
+'21':{title:'Terça 21/7 — Universal Studios Japan',phase:'Osaka',phaseColor:'var(--p2)',subtitle:'Super Nintendo World PRIMEIRO · Harry Potter · Express Pass 3 · Tarde livre',chips:['chip-red:Express Pass 3 — Klook agora','chip-blue:Nintendo World PRIMEIRO'],
+timeline:[
+{t:'06h30',dur:'',dot:'#BA7517',title:'☀️ Acordar + konbini',sub:'Roupa leve, tênis, FPS60+, chapéu. Ingressos e Express Pass no celular.',chips:['chip-red:Julho = 34°C']},
+{t:'07h30',dur:'',dot:'#185FA5',title:'🚇 Metrô para Universal City',sub:'Midosuji→Namba→JR Yumesaki→Universal City. ¥370.',chips:[]},
+{t:'08h30',dur:'90 min',dot:'#c0392b',title:'🍄 Super Nintendo World — PRIMEIRO',sub:'Mario Kart com Express Pass (15 min vs 90+ sem). Power-Up Band ¥3.500. Yoshi\'s Adventure.',chips:['chip-green:Express Pass','chip-purple:Power-Up Band ¥3.500']},
+{t:'10h00',dur:'90 min',dot:'#4cc9f0',title:'⚡ Wizarding World of Harry Potter',sub:'Forbidden Journey (Express Pass). Butterbeer gelado ¥900. Varinha ¥4.000.',chips:['chip-green:Express Pass','chip-blue:Butterbeer ¥900']},
+{t:'12h00',dur:'2h',dot:'#2e7d32',title:'🍽️ Almoço A/C — reserve no app',sub:'Three Broomsticks ou similar. Pico do calor 12h–14h.',chips:['chip-red:A/C obrigatório']},
+{t:'14h00',dur:'4h30',dot:'#BA7517',title:'🎡 Tarde livre — restante do parque',sub:'Minion Park, Jaws, Hollywood Dream, SpiderMan 4D. Compras na loja oficial.',chips:['chip-purple:Minion Park','chip-gray:Hollywood Dream']},
+{t:'18h30',dur:'',dot:'#185FA5',title:'🏠 Retorno hotel',sub:'Jantar opcional em Dotonbori no caminho.',chips:[]}],
+costs:[['Ingressos USJ (3p)','~¥30.000'],['Express Pass 3 (3p)','~¥25.000'],['Power-Up Band','¥3.500'],['Refeições','~¥9.000'],['Transporte','~¥2.100'],['TOTAL','~¥69.600']]},
 
 '22':{title:'Quarta 22/7 — Katsuoji + Amerikamura + Shinsekai',phase:'Osaka',phaseColor:'var(--p2)',subtitle:'Templo das Darumas ⭐ 4.6 · Amerikamura teen · Tower Slider · Despedida Osaka',chips:['chip-purple:Katsuoji ⭐ 4.6','chip-red:IC Card obrigatório ônibus'],
 timeline:[
