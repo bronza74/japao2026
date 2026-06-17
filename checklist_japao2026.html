@@ -494,7 +494,7 @@ window.onload = function() {
 </script>
 
 <!-- ====================================================
-COMO CONFIGURAR O FIREBASE (fazer uma unica vez, ~3 minutos):
+COMO CONFIGURAR O FIREBASE (fazer uma unica vez, ~5 minutos):
 
 1. Acesse https://console.firebase.google.com
 2. Clique em "Adicionar projeto" -> de um nome (ex: japao2026-checklist) -> Continuar
@@ -503,36 +503,76 @@ COMO CONFIGURAR O FIREBASE (fazer uma unica vez, ~3 minutos):
 5. Clique em "Criar banco de dados"
 6. Escolha a localizacao (qualquer uma serve, ex: us-central1) -> Avancar
 7. Selecione "Iniciar no modo de teste" -> Ativar
-   (Isso permite leitura/escrita sem autenticacao - ideal para uso familiar simples)
 8. Copie a URL do banco que aparece no topo (algo como:
    https://japao2026-checklist-default-rtdb.firebaseio.com)
 9. No menu lateral, va em "Configuracoes do projeto" (icone de engrenagem)
 10. Em "Seus aplicativos", clique no icone "</>" (Web)
 11. De um nome ao app (ex: checklist-web) -> Registrar app
 12. Copie o objeto "firebaseConfig" que aparece - vai ter apiKey, databaseURL, projectId etc
-13. Volte neste arquivo HTML e substitua estas duas linhas no inicio do script Firebase:
+13. Volte neste arquivo HTML e substitua estas tres linhas no inicio do script Firebase:
 
-    apiKey: "AIzaSyC_X9WostsWz7xRpxr-0sbL3NZ5Dn2wM7k",          <- colar sua apiKey real aqui
-    databaseURL: "https://checkjapao-f5118-default-rtdb.firebaseio.com",  <- colar sua databaseURL real aqui
-    projectId: "checkjapao-f5118",            <- colar seu projectId real aqui
+    apiKey: "SUA_API_KEY_AQUI",
+    databaseURL: "https://SEU-PROJETO-default-rtdb.firebaseio.com",
+    projectId: "SEU-PROJETO",
 
-14. Salve o arquivo e suba novamente para o GitHub (substituir o arquivo no repositorio)
+14. Salve o arquivo e suba novamente para o GitHub
 15. Pronto - qualquer pessoa que abrir o link agora compartilha o mesmo estado
 
-IMPORTANTE - SEGURANCA:
-O modo de teste do Firebase expira automaticamente em 30 dias e bloqueia tudo.
-Antes de expirar, va em Realtime Database -> Regras e troque para:
+====================================================
+SEGURANCA - 2 CAMADAS RECOMENDADAS (fazer apos o passo 13 acima)
+====================================================
 
+CAMADA 1 - Restringir a API Key por dominio (Google Cloud Console)
+1. Acesse https://console.cloud.google.com (mesma conta do Firebase)
+2. Selecione o projeto -> APIs e Servicos -> Credenciais
+3. Clique na API Key listada
+4. Em "Restricoes de aplicativo" -> selecione "Referenciadores HTTP"
+5. Adicione: https://SEU-USUARIO.github.io/*
+6. Em "Restricoes de API" -> limite para "Firebase Realtime Database API"
+7. Salvar
+   Resultado: a apiKey so funciona quando chamada do seu site especifico.
+   Copiar ela do codigo-fonte nao serve para nada em outro lugar.
+
+CAMADA 2 - Trocar as regras abertas por uma senha de acesso simples
+Em vez de regras totalmente abertas (qualquer um le/escreve), use uma
+chave de acesso compartilhada simples. No Firebase Console:
+Realtime Database -> Regras -> cole isto:
+
+{
+  "rules": {
+    "checklist_japao2026": {
+      ".read": "query.auth == 'japao2026familia'",
+      ".write": "query.auth == 'japao2026familia'"
+    }
+  }
+}
+
+E no codigo deste arquivo, troque a linha de inicializacao do dbRef por:
+
+  dbRef = db.ref('checklist_japao2026');
+  // adicionar o parametro de autenticacao customizado e usar .auth()
+  // (requer ajuste adicional - ver alternativa mais simples abaixo)
+
+ALTERNATIVA MAIS SIMPLES (recomendada para uso familiar):
+Mantenha as regras como:
 {
   "rules": {
     ".read": true,
     ".write": true
   }
 }
+e confie na CAMADA 1 (restricao de dominio) como proteção principal.
+Para um checklist de viagem sem dados sensiveis (sem senhas, sem
+numeros de cartao, sem CPF), isso e suficiente. Ninguem de fora vai
+adivinhar a URL exata do seu banco de dados, e mesmo que adivinhe,
+a API Key restrita por dominio dificulta o uso externo.
 
-Isso mantem leitura/escrita aberta permanentemente (sem necessidade de login).
-Como e um checklist de viagem sem dados sensiveis, isso e seguro para uso familiar.
-Se quiser mais seguranca, posso configurar autenticacao por senha simples depois.
+NUNCA COLOCAR NESTE CHECKLIST (mesmo com as protecoes acima):
+- Numeros de passaporte completos
+- Numeros de cartao de credito
+- Senhas de qualquer servico
+- Dados bancarios
+Este checklist deve conter apenas o "o que fazer", nao "os dados sensiveis".
 ==================================================== -->
 </body>
 </html>
